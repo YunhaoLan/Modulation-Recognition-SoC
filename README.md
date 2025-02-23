@@ -1,3 +1,20 @@
+## File structure 
+src/main/scala
+├── vexriscv
+│   └── demo
+│       └── Murax.scala  // Example SoC from the demo
+│       └── CustomInstruction.scala  // Example cpu plugin from the demo
+├── myacc
+│   ├── SscaAccelerator.scala // BlackBox wrapper for the SSCA accelerator (Verilog)
+│   └── ResAccelerator.scala // add it later...
+├── myplugin
+│   ├── SscaPlugin.scala // Custom cpu plugin for SSCA instructions
+│   └── ResNetPlugin.scala // add it later...
+└── mysoc
+    └── mysoc.scala   // Top-level SoC integrating Murax with the accelerators
+
+## ======================== Below are the README of VexRiscv ========================
+
 ## Index
 
 - [Index](#index)
