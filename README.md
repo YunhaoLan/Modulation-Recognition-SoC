@@ -1,10 +1,10 @@
-### Modulation Recognition 
-## File structure 
+## Modulation Recognition 
+### File structure 
 ```
 src/main/scala
 ├── vexriscv
 │   └── demo
-│       └── Murax.scala  // Example SoC from the demo
+│       ├── Murax.scala  // Example SoC from the demo
 │       └── CustomInstruction.scala  // Example cpu plugin from the demo
 ├── myacc
 │   ├── SscaAccelerator.scala // BlackBox wrapper for the SSCA accelerator (Verilog)
