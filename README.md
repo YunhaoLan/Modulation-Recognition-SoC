@@ -1,4 +1,6 @@
+### Modulation Recognition 
 ## File structure 
+```
 src/main/scala
 ├── vexriscv
 │   └── demo
@@ -12,8 +14,11 @@ src/main/scala
 │   └── ResNetPlugin.scala // add it later...
 └── mysoc
     └── mysoc.scala   // Top-level SoC integrating Murax with the accelerators
+```
 
-## ======================== Below are the README of VexRiscv ========================
+
+
+## ======= Below are the README of VexRiscv =======
 
 ## Index
 
