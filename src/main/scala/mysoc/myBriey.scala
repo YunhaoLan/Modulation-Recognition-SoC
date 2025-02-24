@@ -5,6 +5,9 @@ import vexriscv.demo.Briey
 import vexriscv.demo.BrieyConfig
 import myplugin.SscaPlugin
 import myacc.SscaAccelerator
+import mysoc.SimpleAxiSlave
+import mysoc.SimpleAxiSlaveConfig
+
 
 class MyBrieyTop extends Component {
   val io = new Bundle {
@@ -38,16 +41,22 @@ class MyBrieyTop extends Component {
 
   // Instantiate our accelerator (using a BlackBox wrapper)
   val sscaAccel = SscaAccelerator()
-
   // Connect the accelerator's "done" signal (inverted) to our custom plugin.
   sscaPlugin.sscaCsr := !sscaAccel.io.done
-
   // Optionally, expose the accelerator status externally.
   io.sscaStatusOut := sscaPlugin.sscaCsr
 
-  // Optionally, connect the accelerator to an appropriate bus from Briey if required.
-  // (For example, if your accelerator needs to access memory-mapped registers,
-  // you could route it through the existing APB bridge in Briey.)
+  // --- Integrate an internal AXI slave ---
+  // Instantiate our AXI slave peripheral.
+  val myAxiSlave = new SimpleAxiSlave(SimpleAxiSlaveConfig(addressWidth = 4, dataWidth = 32))
+
+  // Add the AXI slave to the internal crossbar.
+  // NOTE: For this to work, the Briey design must expose its axiCrossbar instance.
+  // Here we assume that 'briey' has a public member 'axiCrossbar' of type Axi4CrossbarFactory.
+  // You might need to modify the Briey design or wrap it appropriately if it doesn't expose this.
+  briey.axiCrossbar.addSlaves(
+    myAxiSlave.io.axi -> (0xF0100000L, 0x1000) // Base address and size for the new slave.
+  )
 }
 
 object MyBrieyTop {
