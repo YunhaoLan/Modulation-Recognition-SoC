@@ -4,8 +4,9 @@
 src/main/scala
 ├── vexriscv
 │   └── demo
-│       ├── Murax.scala  // Example SoC from the demo
-│       └── CustomInstruction.scala  // Example cpu plugin from the demo
+│       ├── VexRiscvAxiWithIntegratedJtag.scala  // Top Level CPU with AXI Crossbar
+│       ├── CustomInstruction.scala  // Example cpu plugin from the demo
+│       └── SpiToAxi.scala  // Spi pheriphral connected to AXI interconnect
 ├── myacc
 │   ├── SscaAccelerator.scala // BlackBox wrapper for the SSCA accelerator (Verilog)
 │   └── ResAccelerator.scala // add it later...

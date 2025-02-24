@@ -130,6 +130,12 @@ object VexRiscvAxi4WithIntegratedJtag{
         )
       )
 
+      val io = new Bundle {
+        val axi = master(Axi4(Axi4Config(32, 32)))
+        val spi = master(Spi(ssWidth = 1))
+        val scratchpad = master(Axi4(Axi4Config(32, 32)))
+      }
+
       //CPU instanciation
       val cpu = new VexRiscv(cpuConfig)
 
@@ -184,6 +190,44 @@ object VexRiscvAxi4WithIntegratedJtag{
         }
       }
       cpu
+
+      // Create AXI interconnect
+      val axiCrossbar = Axi4CrossbarFactory()
+      
+      // Instantiate peripherals
+      // Instantiate SPI controller
+      val spiCtrl = new Axi4LiteSpi(SpiControllerConfig(
+        dataWidth = 8,
+        timerWidth = 16,
+        ssWidth = 1,
+        fifoDepth = 8
+      ))
+
+      // TODO: Instantiate scratchpad 
+      val scratchpad = new Axi4LiteScratchpad(1024)
+      
+      // Connect peripherals to crossbar
+      // Connect SPI controller to crossbar
+      axiCrossbar.addSlave(
+        port = spiCtrl.io.axi,
+        mapping = SizeMapping(0xF0000000, 4 KiB)
+      )
+      
+      // Connect scratchpad to crossbar
+      axiCrossbar.addSlave(
+        port = scratchpad.io.axi,
+        mapping = SizeMapping(0x10000000, 1 KiB)
+      )
+      
+      // Connect CPU to crossbar
+      axiCrossbar.addMaster(
+        port = cpu.io.dBus.toAxi4Shared(),
+        masters = List(cpu.io.iBus.toAxi4Shared())
+      )
+      
+      // External connections
+      io.spi <> spiCtrl.io.spi
+      io.scratchpad <> scratchpad.io.axi
     }
   }
 }
