@@ -19,6 +19,9 @@ class MyBrieyTop extends Component {
     // And additional signals:
     val sscaStatusOut = out Bool()
     // ... add more as required.
+
+    // External AXI master interface for testing
+    val extAxiMaster  = master(Axi4Lite(Axi4LiteConfig(addressWidth = 4, dataWidth = 32)))
   }
 
   // Instantiate Briey with a modified configuration that includes our custom plugin.
@@ -56,6 +59,14 @@ class MyBrieyTop extends Component {
   // You might need to modify the Briey design or wrap it appropriately if it doesn't expose this.
   briey.axiCrossbar.addSlaves(
     myAxiSlave.io.axi -> (0xF0100000L, 0x1000) // Base address and size for the new slave.
+  )
+
+  // --- External AXI Master Integration ---
+  // Add the external AXI master (extAxiMaster) to the crossbar so that it can access the internal slave.
+  // This means that an external testbench or controller driving extAxiMaster
+  // will see the memory-mapped registers of myAxiSlave.
+  briey.axiCrossbar.addMasters(
+    io.extAxiMaster -> List(myAxiSlave.io.axi)
   )
 }
 
