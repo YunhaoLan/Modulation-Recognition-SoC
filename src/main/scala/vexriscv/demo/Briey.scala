@@ -164,6 +164,7 @@ object BrieyConfig{
 
 
 class Briey(val config: BrieyConfig) extends Component{
+  val axiCrossbar: Axi4CrossbarFactory = Axi4CrossbarFactory()
 
   //Legacy constructor
   def this(axiFrequency: HertzNumber) {
@@ -315,7 +316,7 @@ class Briey(val config: BrieyConfig) extends Component{
     }
 
 
-    val axiCrossbar = Axi4CrossbarFactory()
+    // val axiCrossbar = Axi4CrossbarFactory()
 
     axiCrossbar.addSlaves(
       ram.io.axi       -> (0x80000000L,   onChipRamSize),
