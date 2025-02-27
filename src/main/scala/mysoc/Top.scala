@@ -202,79 +202,9 @@ class Briey(val config: BrieyConfig) extends Component{
     val regOut = out Bool()
     val sscaStatusOut = out Bool()
     
-    // val extAxiMaster  = master(Axi4(Axi4Config(addressWidth = 12, dataWidth = 32, idWidth = 4)))
-
-    // Write Address (AW) channel
-    val axi_aw_addr  = out Bits(12 bits)
-    val axi_aw_valid = out Bool()
-    val axi_aw_ready = in  Bool()
-
-    // Write Data (W) channel
-    val axi_w_data  = out Bits(32 bits)
-    val axi_w_strb  = out Bits(4 bits) // usually one bit per byte lane
-    val axi_w_valid = out Bool()
-    val axi_w_ready = in  Bool()
-
-    // Write Response (B) channel
-    val axi_b_valid = in  Bool()
-    val axi_b_resp  = in  Bits(2 bits) // response is typically 2 bits ("OKAY" = 0)
-    val axi_b_ready = out Bool()
-
-    // Read Address (AR) channel
-    val axi_ar_addr  = out Bits(12 bits)
-    val axi_ar_valid = out Bool()
-    val axi_ar_ready = in  Bool()
-
-    // Read Data (R) channel
-    val axi_r_data  = in  Bits(32 bits)
-    val axi_r_valid = in  Bool()
-    val axi_r_resp  = in  Bits(2 bits)
-    val axi_r_ready = out Bool()
-
-
-    //tb in
-    val tb_axi_aw_addr  = in Bits(12 bits)
-    val tb_axi_aw_valid = in Bool()
-    val tb_axi_w_data  = in Bits(32 bits)
-    val tb_axi_w_strb  = in Bits(4 bits) 
-    val tb_axi_w_valid = in Bool()
+    val extAxiMaster  = slave(Axi4(Axi4Config(addressWidth = 32, dataWidth = 32, idWidth = 4)))
 
   }
-
-  val extAxiMaster  = master(Axi4(Axi4Config(addressWidth = 12, dataWidth = 32, idWidth = 4)))
-  //--- Manual Connection ---
-  //tb
-  extAxiMaster.aw.addr := tb_axi_aw_addr
-  extAxiMaster.aw.valid := tb_axi_aw_valid
-  extAxiMaster.w.data := tb_axi_w_data
-  extAxiMaster.w.strb := tb_axi_w_strb
-  extAxiMaster.w.valid := tb_axi_w_valid
-  // Write Address Channel (AW)
-  io.axi_aw_addr  := extAxiMaster.aw.addr.asBits
-  io.axi_aw_valid := extAxiMaster.aw.valid
-  extAxiMaster.aw.ready := io.axi_aw_ready
-
-  // Write Data Channel (W)
-  io.axi_w_data  := extAxiMaster.w.data
-  io.axi_w_strb  := extAxiMaster.w.strb
-  io.axi_w_valid := extAxiMaster.w.valid
-  extAxiMaster.w.ready := io.axi_w_ready
-
-  // Write Response Channel (B) - this channel is driven by the slave
-  io.axi_b_valid := extAxiMaster.b.valid
-  io.axi_b_resp  := extAxiMaster.b.payload.resp
-  extAxiMaster.b.ready := io.axi_b_ready
-
-  // Read Address Channel (AR)
-  io.axi_ar_addr  := extAxiMaster.ar.addr.asBits
-  io.axi_ar_valid := extAxiMaster.ar.valid
-  extAxiMaster.ar.ready := io.axi_ar_ready
-
-  // Read Data Channel (R) - this channel is driven by the slave
-  io.axi_r_data  := extAxiMaster.r.payload.data
-  io.axi_r_valid := extAxiMaster.r.valid
-  io.axi_r_resp  := extAxiMaster.r.payload.resp
-  extAxiMaster.r.ready := io.axi_r_ready
   
   val sscaPlugin = new SscaPlugin
   val sscaAccel = SscaAccelerator()
@@ -404,7 +334,7 @@ class Briey(val config: BrieyConfig) extends Component{
 
 
     val axiCrossbar = Axi4CrossbarFactory()
-    val myAxiSlave = new SimpleAxiSlave(SimpleAxiSlaveConfig(addressWidth = 12, dataWidth = 32, idWidth = 4)) /////////////////////////
+    val myAxiSlave = new SimpleAxiSlave(SimpleAxiSlaveConfig(addressWidth = 32, dataWidth = 32, idWidth = 4)) /////////////////////////
 
     axiCrossbar.addSlaves(
       ram.io.axi       -> (0x80000000L,   onChipRamSize),
@@ -417,7 +347,7 @@ class Briey(val config: BrieyConfig) extends Component{
       core.iBus       -> List(ram.io.axi, sdramCtrl.io.axi),
       core.dBus       -> List(ram.io.axi, sdramCtrl.io.axi, apbBridge.io.axi),
       vgaCtrl.io.axi  -> List(            sdramCtrl.io.axi),
-      extAxiMaster -> List(myAxiSlave.io.axi) //////////////////////////////////////////////////////////////////////////////
+      io.extAxiMaster -> List(myAxiSlave.io.axi) //////////////////////////////////////////////////////////////////////////////
     )
 
 
@@ -453,16 +383,6 @@ class Briey(val config: BrieyConfig) extends Component{
       cpu.writeRsp              <<  crossbar.writeRsp
       cpu.readRsp               <-< crossbar.readRsp //Data cache directly use read responses without buffering, so pipeline it for FMax
     })
-
-    // val myAxiSlave = new SimpleAxiSlave(SimpleAxiSlaveConfig(addressWidth = 12, dataWidth = 32, idWidth = 4))
-    // axiCrossbar.addSlaves(
-    //     myAxiSlave.io.axi -> SizeMapping(0xF0100000L, 0x1000L)
-    // )
-
-    // axiCrossbar.addConnections(
-    //     io.extAxiMaster -> List(myAxiSlave.io.axi)
-    // )
-
 
     axiCrossbar.build()
 
