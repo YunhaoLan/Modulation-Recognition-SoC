@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.10.2a    git head : a348a60b7e8b6a455c72e1536ec3d74a2ea16935
 // Component : Briey
-// Git hash  : 2302791e89a4abd293eb9ffe9d61a47fac166602
+// Git hash  : f2cbcba355697d9a2541e53f41ab8558f0181ee0
 
 `timescale 1ns/1ps
 
@@ -41,6 +41,7 @@ module Briey (
   input  wire          io_timerExternal_tick,
   input  wire          io_coreInterrupt,
   output wire          io_sscaStatusOut,
+  input  wire          io_tb_done,
   input  wire          clk,
   input  wire          reset
 );
@@ -383,9 +384,9 @@ module Briey (
   reg        [0:0]    _zz_io_sscaStatusOut;
   reg                 resetCtrl_systemResetUnbuffered;
   reg        [5:0]    resetCtrl_systemResetCounter;
-  wire       [5:0]    _zz_when_Top_l229;
-  wire                when_Top_l229;
-  wire                when_Top_l233;
+  wire       [5:0]    _zz_when_Top_l230;
+  wire                when_Top_l230;
+  wire                when_Top_l234;
   reg                 resetCtrl_systemReset;
   reg                 resetCtrl_axiReset;
   wire                resetCtrl_vgaReset;
@@ -679,7 +680,8 @@ module Briey (
 
   assign _zz_dbus_axi_arw_payload_len = ((toplevel_axi_core_cpu_dBus_cmd_m2sPipe_m2sPipe_s2mPipe_payload_size == 3'b101) ? 3'b111 : 3'b000);
   SscaAccelerator sscaAccel (
-    .done (sscaAccel_done)  //o
+    .tb_done (io_tb_done    ), //i
+    .done    (sscaAccel_done)  //o
   );
   (* keep_hierarchy = "TRUE" *) BufferCC io_asyncReset_buffercc (
     .io_dataIn  (io_asyncReset                    ), //i
@@ -1379,14 +1381,14 @@ module Briey (
   assign io_sscaStatusOut = _zz_io_sscaStatusOut[0];
   always @(*) begin
     resetCtrl_systemResetUnbuffered = 1'b0;
-    if(when_Top_l229) begin
+    if(when_Top_l230) begin
       resetCtrl_systemResetUnbuffered = 1'b1;
     end
   end
 
-  assign _zz_when_Top_l229[5 : 0] = 6'h3f;
-  assign when_Top_l229 = (resetCtrl_systemResetCounter != _zz_when_Top_l229);
-  assign when_Top_l233 = io_asyncReset_buffercc_io_dataOut;
+  assign _zz_when_Top_l230[5 : 0] = 6'h3f;
+  assign when_Top_l230 = (resetCtrl_systemResetCounter != _zz_when_Top_l230);
+  assign when_Top_l234 = io_asyncReset_buffercc_io_dataOut;
   assign resetCtrl_vgaReset = resetCtrl_axiReset_buffercc_io_dataOut;
   assign axi_core_cpu_iBus_rsp_payload_error = (! (axi4ReadOnlyDecoder_2_io_input_r_payload_resp == 2'b00));
   always @(*) begin
@@ -1726,10 +1728,10 @@ module Briey (
   end
 
   always @(posedge io_axiClk) begin
-    if(when_Top_l229) begin
+    if(when_Top_l230) begin
       resetCtrl_systemResetCounter <= (resetCtrl_systemResetCounter + 6'h01);
     end
-    if(when_Top_l233) begin
+    if(when_Top_l234) begin
       resetCtrl_systemResetCounter <= 6'h0;
     end
   end
