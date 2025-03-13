@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.10.2a    git head : a348a60b7e8b6a455c72e1536ec3d74a2ea16935
 // Component : Briey
-// Git hash  : c31b047343cf44c5026d45381217b17f3cf0c519
+// Git hash  : af72c89b106299388d50b774664d5f143788c274
 
 `timescale 1ns/1ps
 
@@ -40,47 +40,8 @@ module Briey (
   input  wire          io_timerExternal_clear,
   input  wire          io_timerExternal_tick,
   input  wire          io_coreInterrupt,
-  output wire          io_regOut,
   output wire          io_sscaStatusOut,
-  input  wire          io_extAxiMaster_aw_valid,
-  output wire          io_extAxiMaster_aw_ready,
-  input  wire [31:0]   io_extAxiMaster_aw_payload_addr,
-  input  wire [3:0]    io_extAxiMaster_aw_payload_id,
-  input  wire [3:0]    io_extAxiMaster_aw_payload_region,
-  input  wire [7:0]    io_extAxiMaster_aw_payload_len,
-  input  wire [2:0]    io_extAxiMaster_aw_payload_size,
-  input  wire [1:0]    io_extAxiMaster_aw_payload_burst,
-  input  wire [0:0]    io_extAxiMaster_aw_payload_lock,
-  input  wire [3:0]    io_extAxiMaster_aw_payload_cache,
-  input  wire [3:0]    io_extAxiMaster_aw_payload_qos,
-  input  wire [2:0]    io_extAxiMaster_aw_payload_prot,
-  input  wire          io_extAxiMaster_w_valid,
-  output wire          io_extAxiMaster_w_ready,
-  input  wire [31:0]   io_extAxiMaster_w_payload_data,
-  input  wire [3:0]    io_extAxiMaster_w_payload_strb,
-  input  wire          io_extAxiMaster_w_payload_last,
-  output wire          io_extAxiMaster_b_valid,
-  input  wire          io_extAxiMaster_b_ready,
-  output wire [3:0]    io_extAxiMaster_b_payload_id,
-  output wire [1:0]    io_extAxiMaster_b_payload_resp,
-  input  wire          io_extAxiMaster_ar_valid,
-  output wire          io_extAxiMaster_ar_ready,
-  input  wire [31:0]   io_extAxiMaster_ar_payload_addr,
-  input  wire [3:0]    io_extAxiMaster_ar_payload_id,
-  input  wire [3:0]    io_extAxiMaster_ar_payload_region,
-  input  wire [7:0]    io_extAxiMaster_ar_payload_len,
-  input  wire [2:0]    io_extAxiMaster_ar_payload_size,
-  input  wire [1:0]    io_extAxiMaster_ar_payload_burst,
-  input  wire [0:0]    io_extAxiMaster_ar_payload_lock,
-  input  wire [3:0]    io_extAxiMaster_ar_payload_cache,
-  input  wire [3:0]    io_extAxiMaster_ar_payload_qos,
-  input  wire [2:0]    io_extAxiMaster_ar_payload_prot,
-  output wire          io_extAxiMaster_r_valid,
-  input  wire          io_extAxiMaster_r_ready,
-  output wire [31:0]   io_extAxiMaster_r_payload_data,
-  output wire [3:0]    io_extAxiMaster_r_payload_id,
-  output wire [1:0]    io_extAxiMaster_r_payload_resp,
-  output wire          io_extAxiMaster_r_payload_last,
+  input  wire          io_tb_done,
   input  wire          clk,
   input  wire          reset
 );
@@ -219,37 +180,25 @@ module Briey (
   wire       [31:0]   systemDebugger_1_io_mem_cmd_payload_data;
   wire                systemDebugger_1_io_mem_cmd_payload_wr;
   wire       [1:0]    systemDebugger_1_io_mem_cmd_payload_size;
-  wire                axi_myAxiSlave_io_axi_ar_ready;
-  wire                axi_myAxiSlave_io_axi_aw_ready;
-  wire                axi_myAxiSlave_io_axi_w_ready;
-  wire                axi_myAxiSlave_io_axi_r_valid;
-  wire       [31:0]   axi_myAxiSlave_io_axi_r_payload_data;
-  wire       [3:0]    axi_myAxiSlave_io_axi_r_payload_id;
-  wire       [1:0]    axi_myAxiSlave_io_axi_r_payload_resp;
-  wire                axi_myAxiSlave_io_axi_r_payload_last;
-  wire                axi_myAxiSlave_io_axi_b_valid;
-  wire       [3:0]    axi_myAxiSlave_io_axi_b_payload_id;
-  wire       [1:0]    axi_myAxiSlave_io_axi_b_payload_resp;
-  wire       [31:0]   axi_myAxiSlave_io_regOut;
-  wire                axi4ReadOnlyDecoder_3_io_input_ar_ready;
-  wire                axi4ReadOnlyDecoder_3_io_input_r_valid;
-  wire       [31:0]   axi4ReadOnlyDecoder_3_io_input_r_payload_data;
-  wire       [1:0]    axi4ReadOnlyDecoder_3_io_input_r_payload_resp;
-  wire                axi4ReadOnlyDecoder_3_io_input_r_payload_last;
-  wire                axi4ReadOnlyDecoder_3_io_outputs_0_ar_valid;
-  wire       [31:0]   axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_addr;
-  wire       [7:0]    axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_len;
-  wire       [1:0]    axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_burst;
-  wire       [3:0]    axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_cache;
-  wire       [2:0]    axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_prot;
-  wire                axi4ReadOnlyDecoder_3_io_outputs_0_r_ready;
-  wire                axi4ReadOnlyDecoder_3_io_outputs_1_ar_valid;
-  wire       [31:0]   axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_addr;
-  wire       [7:0]    axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_len;
-  wire       [1:0]    axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_burst;
-  wire       [3:0]    axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_cache;
-  wire       [2:0]    axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_prot;
-  wire                axi4ReadOnlyDecoder_3_io_outputs_1_r_ready;
+  wire                axi4ReadOnlyDecoder_2_io_input_ar_ready;
+  wire                axi4ReadOnlyDecoder_2_io_input_r_valid;
+  wire       [31:0]   axi4ReadOnlyDecoder_2_io_input_r_payload_data;
+  wire       [1:0]    axi4ReadOnlyDecoder_2_io_input_r_payload_resp;
+  wire                axi4ReadOnlyDecoder_2_io_input_r_payload_last;
+  wire                axi4ReadOnlyDecoder_2_io_outputs_0_ar_valid;
+  wire       [31:0]   axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_addr;
+  wire       [7:0]    axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_len;
+  wire       [1:0]    axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_burst;
+  wire       [3:0]    axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_cache;
+  wire       [2:0]    axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_prot;
+  wire                axi4ReadOnlyDecoder_2_io_outputs_0_r_ready;
+  wire                axi4ReadOnlyDecoder_2_io_outputs_1_ar_valid;
+  wire       [31:0]   axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_addr;
+  wire       [7:0]    axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_len;
+  wire       [1:0]    axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_burst;
+  wire       [3:0]    axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_cache;
+  wire       [2:0]    axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_prot;
+  wire                axi4ReadOnlyDecoder_2_io_outputs_1_r_ready;
   wire                dbus_axi_decoder_io_input_arw_ready;
   wire                dbus_axi_decoder_io_input_w_ready;
   wire                dbus_axi_decoder_io_input_b_valid;
@@ -308,45 +257,6 @@ module Briey (
   wire       [3:0]    axi_vgaCtrl_io_axi_decoder_io_outputs_0_ar_payload_cache;
   wire       [2:0]    axi_vgaCtrl_io_axi_decoder_io_outputs_0_ar_payload_prot;
   wire                axi_vgaCtrl_io_axi_decoder_io_outputs_0_r_ready;
-  wire                io_extAxiMaster_readOnly_decoder_io_input_ar_ready;
-  wire                io_extAxiMaster_readOnly_decoder_io_input_r_valid;
-  wire       [31:0]   io_extAxiMaster_readOnly_decoder_io_input_r_payload_data;
-  wire       [3:0]    io_extAxiMaster_readOnly_decoder_io_input_r_payload_id;
-  wire       [1:0]    io_extAxiMaster_readOnly_decoder_io_input_r_payload_resp;
-  wire                io_extAxiMaster_readOnly_decoder_io_input_r_payload_last;
-  wire                io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_valid;
-  wire       [31:0]   io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_addr;
-  wire       [3:0]    io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_id;
-  wire       [3:0]    io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_region;
-  wire       [7:0]    io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_len;
-  wire       [2:0]    io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_size;
-  wire       [1:0]    io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_burst;
-  wire       [0:0]    io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_lock;
-  wire       [3:0]    io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_cache;
-  wire       [3:0]    io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_qos;
-  wire       [2:0]    io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_prot;
-  wire                io_extAxiMaster_readOnly_decoder_io_outputs_0_r_ready;
-  wire                io_extAxiMaster_writeOnly_decoder_io_input_aw_ready;
-  wire                io_extAxiMaster_writeOnly_decoder_io_input_w_ready;
-  wire                io_extAxiMaster_writeOnly_decoder_io_input_b_valid;
-  wire       [3:0]    io_extAxiMaster_writeOnly_decoder_io_input_b_payload_id;
-  wire       [1:0]    io_extAxiMaster_writeOnly_decoder_io_input_b_payload_resp;
-  wire                io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_valid;
-  wire       [31:0]   io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_addr;
-  wire       [3:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_id;
-  wire       [3:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_region;
-  wire       [7:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_len;
-  wire       [2:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_size;
-  wire       [1:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_burst;
-  wire       [0:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_lock;
-  wire       [3:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_cache;
-  wire       [3:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_qos;
-  wire       [2:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_prot;
-  wire                io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_valid;
-  wire       [31:0]   io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_payload_data;
-  wire       [3:0]    io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_payload_strb;
-  wire                io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_payload_last;
-  wire                io_extAxiMaster_writeOnly_decoder_io_outputs_0_b_ready;
   wire                axi_ram_io_axi_arbiter_io_readInputs_0_ar_ready;
   wire                axi_ram_io_axi_arbiter_io_readInputs_0_r_valid;
   wire       [31:0]   axi_ram_io_axi_arbiter_io_readInputs_0_r_payload_data;
@@ -474,9 +384,9 @@ module Briey (
   reg        [0:0]    _zz_io_sscaStatusOut;
   reg                 resetCtrl_systemResetUnbuffered;
   reg        [5:0]    resetCtrl_systemResetCounter;
-  wire       [5:0]    _zz_when_Top_l229;
-  wire                when_Top_l229;
-  wire                when_Top_l233;
+  wire       [5:0]    _zz_when_Top_l230;
+  wire                when_Top_l230;
+  wire                when_Top_l234;
   reg                 resetCtrl_systemReset;
   reg                 resetCtrl_axiReset;
   wire                resetCtrl_vgaReset;
@@ -584,63 +494,24 @@ module Briey (
   reg                 toplevel_axi_core_cpu_debug_resetOut_regNext;
   wire                toplevel_axi_core_cpu_debug_bus_cmd_fire;
   reg                 toplevel_axi_core_cpu_debug_bus_cmd_fire_regNext;
-  wire                io_extAxiMaster_readOnly_ar_valid;
-  wire                io_extAxiMaster_readOnly_ar_ready;
-  wire       [31:0]   io_extAxiMaster_readOnly_ar_payload_addr;
-  wire       [3:0]    io_extAxiMaster_readOnly_ar_payload_id;
-  wire       [3:0]    io_extAxiMaster_readOnly_ar_payload_region;
-  wire       [7:0]    io_extAxiMaster_readOnly_ar_payload_len;
-  wire       [2:0]    io_extAxiMaster_readOnly_ar_payload_size;
-  wire       [1:0]    io_extAxiMaster_readOnly_ar_payload_burst;
-  wire       [0:0]    io_extAxiMaster_readOnly_ar_payload_lock;
-  wire       [3:0]    io_extAxiMaster_readOnly_ar_payload_cache;
-  wire       [3:0]    io_extAxiMaster_readOnly_ar_payload_qos;
-  wire       [2:0]    io_extAxiMaster_readOnly_ar_payload_prot;
-  wire                io_extAxiMaster_readOnly_r_valid;
-  wire                io_extAxiMaster_readOnly_r_ready;
-  wire       [31:0]   io_extAxiMaster_readOnly_r_payload_data;
-  wire       [3:0]    io_extAxiMaster_readOnly_r_payload_id;
-  wire       [1:0]    io_extAxiMaster_readOnly_r_payload_resp;
-  wire                io_extAxiMaster_readOnly_r_payload_last;
-  wire                io_extAxiMaster_writeOnly_aw_valid;
-  wire                io_extAxiMaster_writeOnly_aw_ready;
-  wire       [31:0]   io_extAxiMaster_writeOnly_aw_payload_addr;
-  wire       [3:0]    io_extAxiMaster_writeOnly_aw_payload_id;
-  wire       [3:0]    io_extAxiMaster_writeOnly_aw_payload_region;
-  wire       [7:0]    io_extAxiMaster_writeOnly_aw_payload_len;
-  wire       [2:0]    io_extAxiMaster_writeOnly_aw_payload_size;
-  wire       [1:0]    io_extAxiMaster_writeOnly_aw_payload_burst;
-  wire       [0:0]    io_extAxiMaster_writeOnly_aw_payload_lock;
-  wire       [3:0]    io_extAxiMaster_writeOnly_aw_payload_cache;
-  wire       [3:0]    io_extAxiMaster_writeOnly_aw_payload_qos;
-  wire       [2:0]    io_extAxiMaster_writeOnly_aw_payload_prot;
-  wire                io_extAxiMaster_writeOnly_w_valid;
-  wire                io_extAxiMaster_writeOnly_w_ready;
-  wire       [31:0]   io_extAxiMaster_writeOnly_w_payload_data;
-  wire       [3:0]    io_extAxiMaster_writeOnly_w_payload_strb;
-  wire                io_extAxiMaster_writeOnly_w_payload_last;
-  wire                io_extAxiMaster_writeOnly_b_valid;
-  wire                io_extAxiMaster_writeOnly_b_ready;
-  wire       [3:0]    io_extAxiMaster_writeOnly_b_payload_id;
-  wire       [1:0]    io_extAxiMaster_writeOnly_b_payload_resp;
-  wire                toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_valid;
-  wire                toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_ready;
-  wire       [31:0]   toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_addr;
-  wire       [7:0]    toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_len;
-  wire       [1:0]    toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_burst;
-  wire       [3:0]    toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_cache;
-  wire       [2:0]    toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_prot;
-  reg                 toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_rValid;
-  wire                toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_fire;
-  wire                toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_valid;
-  wire                toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_ready;
-  wire       [31:0]   toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_addr;
-  wire       [7:0]    toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_len;
-  wire       [1:0]    toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_burst;
-  wire       [3:0]    toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_cache;
-  wire       [2:0]    toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_prot;
-  reg                 toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_rValid;
-  wire                toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_fire;
+  wire                toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_valid;
+  wire                toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_ready;
+  wire       [31:0]   toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_addr;
+  wire       [7:0]    toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_len;
+  wire       [1:0]    toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_burst;
+  wire       [3:0]    toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_cache;
+  wire       [2:0]    toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_prot;
+  reg                 toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_rValid;
+  wire                toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_fire;
+  wire                toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_valid;
+  wire                toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_ready;
+  wire       [31:0]   toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_addr;
+  wire       [7:0]    toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_len;
+  wire       [1:0]    toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_burst;
+  wire       [3:0]    toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_cache;
+  wire       [2:0]    toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_prot;
+  reg                 toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_rValid;
+  wire                toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_fire;
   wire                toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_validPipe_valid;
   wire                toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_validPipe_ready;
   wire       [31:0]   toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_validPipe_payload_addr;
@@ -704,34 +575,6 @@ module Briey (
   reg        [2:0]    toplevel_axi_vgaCtrl_io_axi_ar_rData_size;
   reg        [3:0]    toplevel_axi_vgaCtrl_io_axi_ar_rData_cache;
   reg        [2:0]    toplevel_axi_vgaCtrl_io_axi_ar_rData_prot;
-  wire                toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_valid;
-  wire                toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_ready;
-  wire       [31:0]   toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_addr;
-  wire       [3:0]    toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_id;
-  wire       [3:0]    toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_region;
-  wire       [7:0]    toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_len;
-  wire       [2:0]    toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_size;
-  wire       [1:0]    toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_burst;
-  wire       [0:0]    toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_lock;
-  wire       [3:0]    toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_cache;
-  wire       [3:0]    toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_qos;
-  wire       [2:0]    toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_prot;
-  reg                 toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_rValid;
-  wire                toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_fire;
-  wire                toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_valid;
-  wire                toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_ready;
-  wire       [31:0]   toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_addr;
-  wire       [3:0]    toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_id;
-  wire       [3:0]    toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_region;
-  wire       [7:0]    toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_len;
-  wire       [2:0]    toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_size;
-  wire       [1:0]    toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_burst;
-  wire       [0:0]    toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_lock;
-  wire       [3:0]    toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_cache;
-  wire       [3:0]    toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_qos;
-  wire       [2:0]    toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_prot;
-  reg                 toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_rValid;
-  wire                toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_fire;
   wire       [2:0]    _zz_io_readInputs_0_ar_payload_id;
   wire       [2:0]    _zz_io_sharedInputs_0_arw_payload_id;
   wire                toplevel_axi_ram_io_axi_arbiter_io_output_arw_halfPipe_valid;
@@ -837,7 +680,8 @@ module Briey (
 
   assign _zz_dbus_axi_arw_payload_len = ((toplevel_axi_core_cpu_dBus_cmd_m2sPipe_m2sPipe_s2mPipe_payload_size == 3'b101) ? 3'b111 : 3'b000);
   SscaAccelerator sscaAccel (
-    .done (sscaAccel_done)  //o
+    .tb_done (io_tb_done    ), //i
+    .done    (sscaAccel_done)  //o
   );
   (* keep_hierarchy = "TRUE" *) BufferCC io_asyncReset_buffercc (
     .io_dataIn  (io_asyncReset                    ), //i
@@ -1065,11 +909,11 @@ module Briey (
     .debug_bus_rsp_data            (axi_core_cpu_debug_bus_rsp_data[31:0]              ), //o
     .debug_resetOut                (axi_core_cpu_debug_resetOut                        ), //o
     .iBus_cmd_valid                (axi_core_cpu_iBus_cmd_valid                        ), //o
-    .iBus_cmd_ready                (axi4ReadOnlyDecoder_3_io_input_ar_ready            ), //i
+    .iBus_cmd_ready                (axi4ReadOnlyDecoder_2_io_input_ar_ready            ), //i
     .iBus_cmd_payload_address      (axi_core_cpu_iBus_cmd_payload_address[31:0]        ), //o
     .iBus_cmd_payload_size         (axi_core_cpu_iBus_cmd_payload_size[2:0]            ), //o
-    .iBus_rsp_valid                (axi4ReadOnlyDecoder_3_io_input_r_valid             ), //i
-    .iBus_rsp_payload_data         (axi4ReadOnlyDecoder_3_io_input_r_payload_data[31:0]), //i
+    .iBus_rsp_valid                (axi4ReadOnlyDecoder_2_io_input_r_valid             ), //i
+    .iBus_rsp_payload_data         (axi4ReadOnlyDecoder_2_io_input_r_payload_data[31:0]), //i
     .iBus_rsp_payload_error        (axi_core_cpu_iBus_rsp_payload_error                ), //i
     .io_axiClk                     (io_axiClk                                          ), //i
     .resetCtrl_axiReset            (resetCtrl_axiReset                                 ), //i
@@ -1117,84 +961,40 @@ module Briey (
     .io_axiClk                      (io_axiClk                                        ), //i
     .resetCtrl_systemReset          (resetCtrl_systemReset                            )  //i
   );
-  SimpleAxiSlave axi_myAxiSlave (
-    .io_axi_aw_valid          (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_valid              ), //i
-    .io_axi_aw_ready          (axi_myAxiSlave_io_axi_aw_ready                                                          ), //o
-    .io_axi_aw_payload_addr   (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_addr[31:0] ), //i
-    .io_axi_aw_payload_id     (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_id[3:0]    ), //i
-    .io_axi_aw_payload_region (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_region[3:0]), //i
-    .io_axi_aw_payload_len    (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_len[7:0]   ), //i
-    .io_axi_aw_payload_size   (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_size[2:0]  ), //i
-    .io_axi_aw_payload_burst  (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_burst[1:0] ), //i
-    .io_axi_aw_payload_lock   (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_lock       ), //i
-    .io_axi_aw_payload_cache  (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_cache[3:0] ), //i
-    .io_axi_aw_payload_qos    (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_qos[3:0]   ), //i
-    .io_axi_aw_payload_prot   (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_prot[2:0]  ), //i
-    .io_axi_w_valid           (io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_valid                                  ), //i
-    .io_axi_w_ready           (axi_myAxiSlave_io_axi_w_ready                                                           ), //o
-    .io_axi_w_payload_data    (io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_payload_data[31:0]                     ), //i
-    .io_axi_w_payload_strb    (io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_payload_strb[3:0]                      ), //i
-    .io_axi_w_payload_last    (io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_payload_last                           ), //i
-    .io_axi_b_valid           (axi_myAxiSlave_io_axi_b_valid                                                           ), //o
-    .io_axi_b_ready           (io_extAxiMaster_writeOnly_decoder_io_outputs_0_b_ready                                  ), //i
-    .io_axi_b_payload_id      (axi_myAxiSlave_io_axi_b_payload_id[3:0]                                                 ), //o
-    .io_axi_b_payload_resp    (axi_myAxiSlave_io_axi_b_payload_resp[1:0]                                               ), //o
-    .io_axi_ar_valid          (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_valid               ), //i
-    .io_axi_ar_ready          (axi_myAxiSlave_io_axi_ar_ready                                                          ), //o
-    .io_axi_ar_payload_addr   (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_addr[31:0]  ), //i
-    .io_axi_ar_payload_id     (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_id[3:0]     ), //i
-    .io_axi_ar_payload_region (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_region[3:0] ), //i
-    .io_axi_ar_payload_len    (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_len[7:0]    ), //i
-    .io_axi_ar_payload_size   (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_size[2:0]   ), //i
-    .io_axi_ar_payload_burst  (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_burst[1:0]  ), //i
-    .io_axi_ar_payload_lock   (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_lock        ), //i
-    .io_axi_ar_payload_cache  (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_cache[3:0]  ), //i
-    .io_axi_ar_payload_qos    (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_qos[3:0]    ), //i
-    .io_axi_ar_payload_prot   (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_prot[2:0]   ), //i
-    .io_axi_r_valid           (axi_myAxiSlave_io_axi_r_valid                                                           ), //o
-    .io_axi_r_ready           (io_extAxiMaster_readOnly_decoder_io_outputs_0_r_ready                                   ), //i
-    .io_axi_r_payload_data    (axi_myAxiSlave_io_axi_r_payload_data[31:0]                                              ), //o
-    .io_axi_r_payload_id      (axi_myAxiSlave_io_axi_r_payload_id[3:0]                                                 ), //o
-    .io_axi_r_payload_resp    (axi_myAxiSlave_io_axi_r_payload_resp[1:0]                                               ), //o
-    .io_axi_r_payload_last    (axi_myAxiSlave_io_axi_r_payload_last                                                    ), //o
-    .io_regOut                (axi_myAxiSlave_io_regOut[31:0]                                                          ), //o
-    .io_axiClk                (io_axiClk                                                                               ), //i
-    .resetCtrl_axiReset       (resetCtrl_axiReset                                                                      )  //i
-  );
-  Axi4ReadOnlyDecoder axi4ReadOnlyDecoder_3 (
+  Axi4ReadOnlyDecoder axi4ReadOnlyDecoder_2 (
     .io_input_ar_valid             (axi_core_cpu_iBus_cmd_valid                                      ), //i
-    .io_input_ar_ready             (axi4ReadOnlyDecoder_3_io_input_ar_ready                          ), //o
+    .io_input_ar_ready             (axi4ReadOnlyDecoder_2_io_input_ar_ready                          ), //o
     .io_input_ar_payload_addr      (axi_core_cpu_iBus_cmd_payload_address[31:0]                      ), //i
     .io_input_ar_payload_len       (8'h07                                                            ), //i
     .io_input_ar_payload_burst     (2'b01                                                            ), //i
     .io_input_ar_payload_cache     (4'b1111                                                          ), //i
     .io_input_ar_payload_prot      (3'b110                                                           ), //i
-    .io_input_r_valid              (axi4ReadOnlyDecoder_3_io_input_r_valid                           ), //o
+    .io_input_r_valid              (axi4ReadOnlyDecoder_2_io_input_r_valid                           ), //o
     .io_input_r_ready              (1'b1                                                             ), //i
-    .io_input_r_payload_data       (axi4ReadOnlyDecoder_3_io_input_r_payload_data[31:0]              ), //o
-    .io_input_r_payload_resp       (axi4ReadOnlyDecoder_3_io_input_r_payload_resp[1:0]               ), //o
-    .io_input_r_payload_last       (axi4ReadOnlyDecoder_3_io_input_r_payload_last                    ), //o
-    .io_outputs_0_ar_valid         (axi4ReadOnlyDecoder_3_io_outputs_0_ar_valid                      ), //o
-    .io_outputs_0_ar_ready         (toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_fire    ), //i
-    .io_outputs_0_ar_payload_addr  (axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_addr[31:0]         ), //o
-    .io_outputs_0_ar_payload_len   (axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_len[7:0]           ), //o
-    .io_outputs_0_ar_payload_burst (axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_burst[1:0]         ), //o
-    .io_outputs_0_ar_payload_cache (axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_cache[3:0]         ), //o
-    .io_outputs_0_ar_payload_prot  (axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_prot[2:0]          ), //o
+    .io_input_r_payload_data       (axi4ReadOnlyDecoder_2_io_input_r_payload_data[31:0]              ), //o
+    .io_input_r_payload_resp       (axi4ReadOnlyDecoder_2_io_input_r_payload_resp[1:0]               ), //o
+    .io_input_r_payload_last       (axi4ReadOnlyDecoder_2_io_input_r_payload_last                    ), //o
+    .io_outputs_0_ar_valid         (axi4ReadOnlyDecoder_2_io_outputs_0_ar_valid                      ), //o
+    .io_outputs_0_ar_ready         (toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_fire    ), //i
+    .io_outputs_0_ar_payload_addr  (axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_addr[31:0]         ), //o
+    .io_outputs_0_ar_payload_len   (axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_len[7:0]           ), //o
+    .io_outputs_0_ar_payload_burst (axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_burst[1:0]         ), //o
+    .io_outputs_0_ar_payload_cache (axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_cache[3:0]         ), //o
+    .io_outputs_0_ar_payload_prot  (axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_prot[2:0]          ), //o
     .io_outputs_0_r_valid          (axi_ram_io_axi_arbiter_io_readInputs_0_r_valid                   ), //i
-    .io_outputs_0_r_ready          (axi4ReadOnlyDecoder_3_io_outputs_0_r_ready                       ), //o
+    .io_outputs_0_r_ready          (axi4ReadOnlyDecoder_2_io_outputs_0_r_ready                       ), //o
     .io_outputs_0_r_payload_data   (axi_ram_io_axi_arbiter_io_readInputs_0_r_payload_data[31:0]      ), //i
     .io_outputs_0_r_payload_resp   (axi_ram_io_axi_arbiter_io_readInputs_0_r_payload_resp[1:0]       ), //i
     .io_outputs_0_r_payload_last   (axi_ram_io_axi_arbiter_io_readInputs_0_r_payload_last            ), //i
-    .io_outputs_1_ar_valid         (axi4ReadOnlyDecoder_3_io_outputs_1_ar_valid                      ), //o
-    .io_outputs_1_ar_ready         (toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_fire    ), //i
-    .io_outputs_1_ar_payload_addr  (axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_addr[31:0]         ), //o
-    .io_outputs_1_ar_payload_len   (axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_len[7:0]           ), //o
-    .io_outputs_1_ar_payload_burst (axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_burst[1:0]         ), //o
-    .io_outputs_1_ar_payload_cache (axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_cache[3:0]         ), //o
-    .io_outputs_1_ar_payload_prot  (axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_prot[2:0]          ), //o
+    .io_outputs_1_ar_valid         (axi4ReadOnlyDecoder_2_io_outputs_1_ar_valid                      ), //o
+    .io_outputs_1_ar_ready         (toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_fire    ), //i
+    .io_outputs_1_ar_payload_addr  (axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_addr[31:0]         ), //o
+    .io_outputs_1_ar_payload_len   (axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_len[7:0]           ), //o
+    .io_outputs_1_ar_payload_burst (axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_burst[1:0]         ), //o
+    .io_outputs_1_ar_payload_cache (axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_cache[3:0]         ), //o
+    .io_outputs_1_ar_payload_prot  (axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_prot[2:0]          ), //o
     .io_outputs_1_r_valid          (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_r_valid             ), //i
-    .io_outputs_1_r_ready          (axi4ReadOnlyDecoder_3_io_outputs_1_r_ready                       ), //o
+    .io_outputs_1_r_ready          (axi4ReadOnlyDecoder_2_io_outputs_1_r_ready                       ), //o
     .io_outputs_1_r_payload_data   (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_r_payload_data[31:0]), //i
     .io_outputs_1_r_payload_resp   (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_r_payload_resp[1:0] ), //i
     .io_outputs_1_r_payload_last   (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_r_payload_last      ), //i
@@ -1315,102 +1115,16 @@ module Briey (
     .io_axiClk                     (io_axiClk                                                         ), //i
     .resetCtrl_axiReset            (resetCtrl_axiReset                                                )  //i
   );
-  Axi4ReadOnlyDecoder_2 io_extAxiMaster_readOnly_decoder (
-    .io_input_ar_valid              (io_extAxiMaster_readOnly_ar_valid                                       ), //i
-    .io_input_ar_ready              (io_extAxiMaster_readOnly_decoder_io_input_ar_ready                      ), //o
-    .io_input_ar_payload_addr       (io_extAxiMaster_readOnly_ar_payload_addr[31:0]                          ), //i
-    .io_input_ar_payload_id         (io_extAxiMaster_readOnly_ar_payload_id[3:0]                             ), //i
-    .io_input_ar_payload_region     (io_extAxiMaster_readOnly_ar_payload_region[3:0]                         ), //i
-    .io_input_ar_payload_len        (io_extAxiMaster_readOnly_ar_payload_len[7:0]                            ), //i
-    .io_input_ar_payload_size       (io_extAxiMaster_readOnly_ar_payload_size[2:0]                           ), //i
-    .io_input_ar_payload_burst      (io_extAxiMaster_readOnly_ar_payload_burst[1:0]                          ), //i
-    .io_input_ar_payload_lock       (io_extAxiMaster_readOnly_ar_payload_lock                                ), //i
-    .io_input_ar_payload_cache      (io_extAxiMaster_readOnly_ar_payload_cache[3:0]                          ), //i
-    .io_input_ar_payload_qos        (io_extAxiMaster_readOnly_ar_payload_qos[3:0]                            ), //i
-    .io_input_ar_payload_prot       (io_extAxiMaster_readOnly_ar_payload_prot[2:0]                           ), //i
-    .io_input_r_valid               (io_extAxiMaster_readOnly_decoder_io_input_r_valid                       ), //o
-    .io_input_r_ready               (io_extAxiMaster_readOnly_r_ready                                        ), //i
-    .io_input_r_payload_data        (io_extAxiMaster_readOnly_decoder_io_input_r_payload_data[31:0]          ), //o
-    .io_input_r_payload_id          (io_extAxiMaster_readOnly_decoder_io_input_r_payload_id[3:0]             ), //o
-    .io_input_r_payload_resp        (io_extAxiMaster_readOnly_decoder_io_input_r_payload_resp[1:0]           ), //o
-    .io_input_r_payload_last        (io_extAxiMaster_readOnly_decoder_io_input_r_payload_last                ), //o
-    .io_outputs_0_ar_valid          (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_valid                  ), //o
-    .io_outputs_0_ar_ready          (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_fire), //i
-    .io_outputs_0_ar_payload_addr   (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_addr[31:0]     ), //o
-    .io_outputs_0_ar_payload_id     (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_id[3:0]        ), //o
-    .io_outputs_0_ar_payload_region (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_region[3:0]    ), //o
-    .io_outputs_0_ar_payload_len    (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_len[7:0]       ), //o
-    .io_outputs_0_ar_payload_size   (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_size[2:0]      ), //o
-    .io_outputs_0_ar_payload_burst  (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_burst[1:0]     ), //o
-    .io_outputs_0_ar_payload_lock   (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_lock           ), //o
-    .io_outputs_0_ar_payload_cache  (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_cache[3:0]     ), //o
-    .io_outputs_0_ar_payload_qos    (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_qos[3:0]       ), //o
-    .io_outputs_0_ar_payload_prot   (io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_prot[2:0]      ), //o
-    .io_outputs_0_r_valid           (axi_myAxiSlave_io_axi_r_valid                                           ), //i
-    .io_outputs_0_r_ready           (io_extAxiMaster_readOnly_decoder_io_outputs_0_r_ready                   ), //o
-    .io_outputs_0_r_payload_data    (axi_myAxiSlave_io_axi_r_payload_data[31:0]                              ), //i
-    .io_outputs_0_r_payload_id      (axi_myAxiSlave_io_axi_r_payload_id[3:0]                                 ), //i
-    .io_outputs_0_r_payload_resp    (axi_myAxiSlave_io_axi_r_payload_resp[1:0]                               ), //i
-    .io_outputs_0_r_payload_last    (axi_myAxiSlave_io_axi_r_payload_last                                    ), //i
-    .io_axiClk                      (io_axiClk                                                               ), //i
-    .resetCtrl_axiReset             (resetCtrl_axiReset                                                      )  //i
-  );
-  Axi4WriteOnlyDecoder io_extAxiMaster_writeOnly_decoder (
-    .io_input_aw_valid              (io_extAxiMaster_writeOnly_aw_valid                                       ), //i
-    .io_input_aw_ready              (io_extAxiMaster_writeOnly_decoder_io_input_aw_ready                      ), //o
-    .io_input_aw_payload_addr       (io_extAxiMaster_writeOnly_aw_payload_addr[31:0]                          ), //i
-    .io_input_aw_payload_id         (io_extAxiMaster_writeOnly_aw_payload_id[3:0]                             ), //i
-    .io_input_aw_payload_region     (io_extAxiMaster_writeOnly_aw_payload_region[3:0]                         ), //i
-    .io_input_aw_payload_len        (io_extAxiMaster_writeOnly_aw_payload_len[7:0]                            ), //i
-    .io_input_aw_payload_size       (io_extAxiMaster_writeOnly_aw_payload_size[2:0]                           ), //i
-    .io_input_aw_payload_burst      (io_extAxiMaster_writeOnly_aw_payload_burst[1:0]                          ), //i
-    .io_input_aw_payload_lock       (io_extAxiMaster_writeOnly_aw_payload_lock                                ), //i
-    .io_input_aw_payload_cache      (io_extAxiMaster_writeOnly_aw_payload_cache[3:0]                          ), //i
-    .io_input_aw_payload_qos        (io_extAxiMaster_writeOnly_aw_payload_qos[3:0]                            ), //i
-    .io_input_aw_payload_prot       (io_extAxiMaster_writeOnly_aw_payload_prot[2:0]                           ), //i
-    .io_input_w_valid               (io_extAxiMaster_writeOnly_w_valid                                        ), //i
-    .io_input_w_ready               (io_extAxiMaster_writeOnly_decoder_io_input_w_ready                       ), //o
-    .io_input_w_payload_data        (io_extAxiMaster_writeOnly_w_payload_data[31:0]                           ), //i
-    .io_input_w_payload_strb        (io_extAxiMaster_writeOnly_w_payload_strb[3:0]                            ), //i
-    .io_input_w_payload_last        (io_extAxiMaster_writeOnly_w_payload_last                                 ), //i
-    .io_input_b_valid               (io_extAxiMaster_writeOnly_decoder_io_input_b_valid                       ), //o
-    .io_input_b_ready               (io_extAxiMaster_writeOnly_b_ready                                        ), //i
-    .io_input_b_payload_id          (io_extAxiMaster_writeOnly_decoder_io_input_b_payload_id[3:0]             ), //o
-    .io_input_b_payload_resp        (io_extAxiMaster_writeOnly_decoder_io_input_b_payload_resp[1:0]           ), //o
-    .io_outputs_0_aw_valid          (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_valid                  ), //o
-    .io_outputs_0_aw_ready          (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_fire), //i
-    .io_outputs_0_aw_payload_addr   (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_addr[31:0]     ), //o
-    .io_outputs_0_aw_payload_id     (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_id[3:0]        ), //o
-    .io_outputs_0_aw_payload_region (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_region[3:0]    ), //o
-    .io_outputs_0_aw_payload_len    (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_len[7:0]       ), //o
-    .io_outputs_0_aw_payload_size   (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_size[2:0]      ), //o
-    .io_outputs_0_aw_payload_burst  (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_burst[1:0]     ), //o
-    .io_outputs_0_aw_payload_lock   (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_lock           ), //o
-    .io_outputs_0_aw_payload_cache  (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_cache[3:0]     ), //o
-    .io_outputs_0_aw_payload_qos    (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_qos[3:0]       ), //o
-    .io_outputs_0_aw_payload_prot   (io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_prot[2:0]      ), //o
-    .io_outputs_0_w_valid           (io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_valid                   ), //o
-    .io_outputs_0_w_ready           (axi_myAxiSlave_io_axi_w_ready                                            ), //i
-    .io_outputs_0_w_payload_data    (io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_payload_data[31:0]      ), //o
-    .io_outputs_0_w_payload_strb    (io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_payload_strb[3:0]       ), //o
-    .io_outputs_0_w_payload_last    (io_extAxiMaster_writeOnly_decoder_io_outputs_0_w_payload_last            ), //o
-    .io_outputs_0_b_valid           (axi_myAxiSlave_io_axi_b_valid                                            ), //i
-    .io_outputs_0_b_ready           (io_extAxiMaster_writeOnly_decoder_io_outputs_0_b_ready                   ), //o
-    .io_outputs_0_b_payload_id      (axi_myAxiSlave_io_axi_b_payload_id[3:0]                                  ), //i
-    .io_outputs_0_b_payload_resp    (axi_myAxiSlave_io_axi_b_payload_resp[1:0]                                ), //i
-    .io_axiClk                      (io_axiClk                                                                ), //i
-    .resetCtrl_axiReset             (resetCtrl_axiReset                                                       )  //i
-  );
   Axi4SharedArbiter axi_ram_io_axi_arbiter (
-    .io_readInputs_0_ar_valid            (toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_valid              ), //i
+    .io_readInputs_0_ar_valid            (toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_valid              ), //i
     .io_readInputs_0_ar_ready            (axi_ram_io_axi_arbiter_io_readInputs_0_ar_ready                             ), //o
     .io_readInputs_0_ar_payload_addr     (axi_ram_io_axi_arbiter_io_readInputs_0_ar_payload_addr[11:0]                ), //i
     .io_readInputs_0_ar_payload_id       (_zz_io_readInputs_0_ar_payload_id[2:0]                                      ), //i
-    .io_readInputs_0_ar_payload_len      (toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_len[7:0]   ), //i
+    .io_readInputs_0_ar_payload_len      (toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_len[7:0]   ), //i
     .io_readInputs_0_ar_payload_size     (3'b010                                                                      ), //i
-    .io_readInputs_0_ar_payload_burst    (toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_burst[1:0] ), //i
+    .io_readInputs_0_ar_payload_burst    (toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_burst[1:0] ), //i
     .io_readInputs_0_r_valid             (axi_ram_io_axi_arbiter_io_readInputs_0_r_valid                              ), //o
-    .io_readInputs_0_r_ready             (axi4ReadOnlyDecoder_3_io_outputs_0_r_ready                                  ), //i
+    .io_readInputs_0_r_ready             (axi4ReadOnlyDecoder_2_io_outputs_0_r_ready                                  ), //i
     .io_readInputs_0_r_payload_data      (axi_ram_io_axi_arbiter_io_readInputs_0_r_payload_data[31:0]                 ), //o
     .io_readInputs_0_r_payload_id        (axi_ram_io_axi_arbiter_io_readInputs_0_r_payload_id[2:0]                    ), //o
     .io_readInputs_0_r_payload_resp      (axi_ram_io_axi_arbiter_io_readInputs_0_r_payload_resp[1:0]                  ), //o
@@ -1465,15 +1179,15 @@ module Briey (
     .resetCtrl_axiReset                  (resetCtrl_axiReset                                                          )  //i
   );
   Axi4SharedArbiter_1 axi_sdramCtrl_io_axi_arbiter (
-    .io_readInputs_0_ar_valid            (toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_valid                 ), //i
+    .io_readInputs_0_ar_valid            (toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_valid                 ), //i
     .io_readInputs_0_ar_ready            (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_ar_ready                          ), //o
     .io_readInputs_0_ar_payload_addr     (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_ar_payload_addr[25:0]             ), //i
     .io_readInputs_0_ar_payload_id       (_zz_io_readInputs_0_ar_payload_id_1[1:0]                                       ), //i
-    .io_readInputs_0_ar_payload_len      (toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_len[7:0]      ), //i
+    .io_readInputs_0_ar_payload_len      (toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_len[7:0]      ), //i
     .io_readInputs_0_ar_payload_size     (3'b010                                                                         ), //i
-    .io_readInputs_0_ar_payload_burst    (toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_burst[1:0]    ), //i
+    .io_readInputs_0_ar_payload_burst    (toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_burst[1:0]    ), //i
     .io_readInputs_0_r_valid             (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_r_valid                           ), //o
-    .io_readInputs_0_r_ready             (axi4ReadOnlyDecoder_3_io_outputs_1_r_ready                                     ), //i
+    .io_readInputs_0_r_ready             (axi4ReadOnlyDecoder_2_io_outputs_1_r_ready                                     ), //i
     .io_readInputs_0_r_payload_data      (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_r_payload_data[31:0]              ), //o
     .io_readInputs_0_r_payload_id        (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_r_payload_id[1:0]                 ), //o
     .io_readInputs_0_r_payload_resp      (axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_r_payload_resp[1:0]               ), //o
@@ -1667,16 +1381,16 @@ module Briey (
   assign io_sscaStatusOut = _zz_io_sscaStatusOut[0];
   always @(*) begin
     resetCtrl_systemResetUnbuffered = 1'b0;
-    if(when_Top_l229) begin
+    if(when_Top_l230) begin
       resetCtrl_systemResetUnbuffered = 1'b1;
     end
   end
 
-  assign _zz_when_Top_l229[5 : 0] = 6'h3f;
-  assign when_Top_l229 = (resetCtrl_systemResetCounter != _zz_when_Top_l229);
-  assign when_Top_l233 = io_asyncReset_buffercc_io_dataOut;
+  assign _zz_when_Top_l230[5 : 0] = 6'h3f;
+  assign when_Top_l230 = (resetCtrl_systemResetCounter != _zz_when_Top_l230);
+  assign when_Top_l234 = io_asyncReset_buffercc_io_dataOut;
   assign resetCtrl_vgaReset = resetCtrl_axiReset_buffercc_io_dataOut;
-  assign axi_core_cpu_iBus_rsp_payload_error = (! (axi4ReadOnlyDecoder_3_io_input_r_payload_resp == 2'b00));
+  assign axi_core_cpu_iBus_rsp_payload_error = (! (axi4ReadOnlyDecoder_2_io_input_r_payload_resp == 2'b00));
   always @(*) begin
     axi_core_cpu_dBus_cmd_ready = toplevel_axi_core_cpu_dBus_cmd_m2sPipe_ready;
     if(when_Stream_l375) begin
@@ -1815,61 +1529,22 @@ module Briey (
   assign axi_core_cpu_debug_bus_cmd_payload_address = systemDebugger_1_io_mem_cmd_payload_address[7:0];
   assign toplevel_axi_core_cpu_debug_bus_cmd_fire = (systemDebugger_1_io_mem_cmd_valid && axi_core_cpu_debug_bus_cmd_ready);
   assign io_jtag_tdo = jtagBridge_1_io_jtag_tdo;
-  assign io_extAxiMaster_readOnly_ar_valid = io_extAxiMaster_ar_valid;
-  assign io_extAxiMaster_ar_ready = io_extAxiMaster_readOnly_ar_ready;
-  assign io_extAxiMaster_readOnly_ar_payload_addr = io_extAxiMaster_ar_payload_addr;
-  assign io_extAxiMaster_readOnly_ar_payload_id = io_extAxiMaster_ar_payload_id;
-  assign io_extAxiMaster_readOnly_ar_payload_region = io_extAxiMaster_ar_payload_region;
-  assign io_extAxiMaster_readOnly_ar_payload_len = io_extAxiMaster_ar_payload_len;
-  assign io_extAxiMaster_readOnly_ar_payload_size = io_extAxiMaster_ar_payload_size;
-  assign io_extAxiMaster_readOnly_ar_payload_burst = io_extAxiMaster_ar_payload_burst;
-  assign io_extAxiMaster_readOnly_ar_payload_lock = io_extAxiMaster_ar_payload_lock;
-  assign io_extAxiMaster_readOnly_ar_payload_cache = io_extAxiMaster_ar_payload_cache;
-  assign io_extAxiMaster_readOnly_ar_payload_qos = io_extAxiMaster_ar_payload_qos;
-  assign io_extAxiMaster_readOnly_ar_payload_prot = io_extAxiMaster_ar_payload_prot;
-  assign io_extAxiMaster_r_valid = io_extAxiMaster_readOnly_r_valid;
-  assign io_extAxiMaster_readOnly_r_ready = io_extAxiMaster_r_ready;
-  assign io_extAxiMaster_r_payload_data = io_extAxiMaster_readOnly_r_payload_data;
-  assign io_extAxiMaster_r_payload_last = io_extAxiMaster_readOnly_r_payload_last;
-  assign io_extAxiMaster_r_payload_id = io_extAxiMaster_readOnly_r_payload_id;
-  assign io_extAxiMaster_r_payload_resp = io_extAxiMaster_readOnly_r_payload_resp;
-  assign io_extAxiMaster_writeOnly_aw_valid = io_extAxiMaster_aw_valid;
-  assign io_extAxiMaster_aw_ready = io_extAxiMaster_writeOnly_aw_ready;
-  assign io_extAxiMaster_writeOnly_aw_payload_addr = io_extAxiMaster_aw_payload_addr;
-  assign io_extAxiMaster_writeOnly_aw_payload_id = io_extAxiMaster_aw_payload_id;
-  assign io_extAxiMaster_writeOnly_aw_payload_region = io_extAxiMaster_aw_payload_region;
-  assign io_extAxiMaster_writeOnly_aw_payload_len = io_extAxiMaster_aw_payload_len;
-  assign io_extAxiMaster_writeOnly_aw_payload_size = io_extAxiMaster_aw_payload_size;
-  assign io_extAxiMaster_writeOnly_aw_payload_burst = io_extAxiMaster_aw_payload_burst;
-  assign io_extAxiMaster_writeOnly_aw_payload_lock = io_extAxiMaster_aw_payload_lock;
-  assign io_extAxiMaster_writeOnly_aw_payload_cache = io_extAxiMaster_aw_payload_cache;
-  assign io_extAxiMaster_writeOnly_aw_payload_qos = io_extAxiMaster_aw_payload_qos;
-  assign io_extAxiMaster_writeOnly_aw_payload_prot = io_extAxiMaster_aw_payload_prot;
-  assign io_extAxiMaster_writeOnly_w_valid = io_extAxiMaster_w_valid;
-  assign io_extAxiMaster_w_ready = io_extAxiMaster_writeOnly_w_ready;
-  assign io_extAxiMaster_writeOnly_w_payload_data = io_extAxiMaster_w_payload_data;
-  assign io_extAxiMaster_writeOnly_w_payload_strb = io_extAxiMaster_w_payload_strb;
-  assign io_extAxiMaster_writeOnly_w_payload_last = io_extAxiMaster_w_payload_last;
-  assign io_extAxiMaster_b_valid = io_extAxiMaster_writeOnly_b_valid;
-  assign io_extAxiMaster_writeOnly_b_ready = io_extAxiMaster_b_ready;
-  assign io_extAxiMaster_b_payload_id = io_extAxiMaster_writeOnly_b_payload_id;
-  assign io_extAxiMaster_b_payload_resp = io_extAxiMaster_writeOnly_b_payload_resp;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_fire = (toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_valid && toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_ready);
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_valid = toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_rValid;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_addr = axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_addr;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_len = axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_len;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_burst = axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_burst;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_cache = axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_cache;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_prot = axi4ReadOnlyDecoder_3_io_outputs_0_ar_payload_prot;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_ready = axi_ram_io_axi_arbiter_io_readInputs_0_ar_ready;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_fire = (toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_valid && toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_ready);
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_valid = toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_rValid;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_addr = axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_addr;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_len = axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_len;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_burst = axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_burst;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_cache = axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_cache;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_prot = axi4ReadOnlyDecoder_3_io_outputs_1_ar_payload_prot;
-  assign toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_ready = axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_ar_ready;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_fire = (toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_valid && toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_ready);
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_valid = toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_rValid;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_addr = axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_addr;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_len = axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_len;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_burst = axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_burst;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_cache = axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_cache;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_prot = axi4ReadOnlyDecoder_2_io_outputs_0_ar_payload_prot;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_ready = axi_ram_io_axi_arbiter_io_readInputs_0_ar_ready;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_fire = (toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_valid && toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_ready);
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_valid = toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_rValid;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_addr = axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_addr;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_len = axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_len;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_burst = axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_burst;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_cache = axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_cache;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_prot = axi4ReadOnlyDecoder_2_io_outputs_1_ar_payload_prot;
+  assign toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_ready = axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_ar_ready;
   assign toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_validPipe_fire = (toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_validPipe_valid && toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_validPipe_ready);
   assign toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_validPipe_valid = toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_rValid;
   assign toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_validPipe_payload_addr = dbus_axi_decoder_io_sharedOutputs_0_arw_payload_addr;
@@ -1935,44 +1610,7 @@ module Briey (
   assign toplevel_axi_vgaCtrl_io_axi_ar_halfPipe_payload_cache = toplevel_axi_vgaCtrl_io_axi_ar_rData_cache;
   assign toplevel_axi_vgaCtrl_io_axi_ar_halfPipe_payload_prot = toplevel_axi_vgaCtrl_io_axi_ar_rData_prot;
   assign toplevel_axi_vgaCtrl_io_axi_ar_halfPipe_ready = axi_vgaCtrl_io_axi_decoder_io_input_ar_ready;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_fire = (toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_valid && toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_ready);
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_valid = toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_rValid;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_addr = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_addr;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_id = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_id;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_region = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_region;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_len = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_len;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_size = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_size;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_burst = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_burst;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_lock = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_lock;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_cache = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_cache;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_qos = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_qos;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_payload_prot = io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_payload_prot;
-  assign toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_ready = axi_myAxiSlave_io_axi_ar_ready;
-  assign io_extAxiMaster_readOnly_ar_ready = io_extAxiMaster_readOnly_decoder_io_input_ar_ready;
-  assign io_extAxiMaster_readOnly_r_valid = io_extAxiMaster_readOnly_decoder_io_input_r_valid;
-  assign io_extAxiMaster_readOnly_r_payload_data = io_extAxiMaster_readOnly_decoder_io_input_r_payload_data;
-  assign io_extAxiMaster_readOnly_r_payload_last = io_extAxiMaster_readOnly_decoder_io_input_r_payload_last;
-  assign io_extAxiMaster_readOnly_r_payload_id = io_extAxiMaster_readOnly_decoder_io_input_r_payload_id;
-  assign io_extAxiMaster_readOnly_r_payload_resp = io_extAxiMaster_readOnly_decoder_io_input_r_payload_resp;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_fire = (toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_valid && toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_ready);
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_valid = toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_rValid;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_addr = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_addr;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_id = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_id;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_region = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_region;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_len = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_len;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_size = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_size;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_burst = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_burst;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_lock = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_lock;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_cache = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_cache;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_qos = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_qos;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_payload_prot = io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_payload_prot;
-  assign toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_ready = axi_myAxiSlave_io_axi_aw_ready;
-  assign io_extAxiMaster_writeOnly_aw_ready = io_extAxiMaster_writeOnly_decoder_io_input_aw_ready;
-  assign io_extAxiMaster_writeOnly_w_ready = io_extAxiMaster_writeOnly_decoder_io_input_w_ready;
-  assign io_extAxiMaster_writeOnly_b_valid = io_extAxiMaster_writeOnly_decoder_io_input_b_valid;
-  assign io_extAxiMaster_writeOnly_b_payload_id = io_extAxiMaster_writeOnly_decoder_io_input_b_payload_id;
-  assign io_extAxiMaster_writeOnly_b_payload_resp = io_extAxiMaster_writeOnly_decoder_io_input_b_payload_resp;
-  assign axi_ram_io_axi_arbiter_io_readInputs_0_ar_payload_addr = toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_payload_addr[11:0];
+  assign axi_ram_io_axi_arbiter_io_readInputs_0_ar_payload_addr = toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_payload_addr[11:0];
   assign _zz_io_readInputs_0_ar_payload_id[2 : 0] = 3'b000;
   assign axi_ram_io_axi_arbiter_io_sharedInputs_0_arw_payload_addr = toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_validPipe_payload_addr[11:0];
   assign _zz_io_sharedInputs_0_arw_payload_id[2 : 0] = 3'b000;
@@ -2003,7 +1641,7 @@ module Briey (
   assign toplevel_axi_ram_io_axi_arbiter_io_output_w_s2mPipe_m2sPipe_payload_strb = toplevel_axi_ram_io_axi_arbiter_io_output_w_s2mPipe_rData_strb;
   assign toplevel_axi_ram_io_axi_arbiter_io_output_w_s2mPipe_m2sPipe_payload_last = toplevel_axi_ram_io_axi_arbiter_io_output_w_s2mPipe_rData_last;
   assign toplevel_axi_ram_io_axi_arbiter_io_output_w_s2mPipe_m2sPipe_ready = axi_ram_io_axi_w_ready;
-  assign axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_ar_payload_addr = toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_payload_addr[25:0];
+  assign axi_sdramCtrl_io_axi_arbiter_io_readInputs_0_ar_payload_addr = toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_payload_addr[25:0];
   assign _zz_io_readInputs_0_ar_payload_id_1[1 : 0] = 2'b00;
   assign axi_sdramCtrl_io_axi_arbiter_io_readInputs_1_ar_payload_addr = toplevel_axi_vgaCtrl_io_axi_decoder_io_outputs_0_ar_validPipe_payload_addr[25:0];
   assign _zz_io_readInputs_1_ar_payload_id[1 : 0] = 2'b00;
@@ -2060,7 +1698,6 @@ module Briey (
   assign axi_uartCtrl_io_apb_PADDR = apb3Router_1_io_outputs_2_PADDR[4:0];
   assign axi_timerCtrl_io_apb_PADDR = apb3Router_1_io_outputs_3_PADDR[7:0];
   assign axi_vgaCtrl_io_apb_PADDR = apb3Router_1_io_outputs_4_PADDR[7:0];
-  assign io_regOut = axi_myAxiSlave_io_regOut[0];
   assign io_gpioA_write = axi_gpioACtrl_io_gpio_write;
   assign io_gpioA_writeEnable = axi_gpioACtrl_io_gpio_writeEnable;
   assign io_gpioB_write = axi_gpioBCtrl_io_gpio_write;
@@ -2091,10 +1728,10 @@ module Briey (
   end
 
   always @(posedge io_axiClk) begin
-    if(when_Top_l229) begin
+    if(when_Top_l230) begin
       resetCtrl_systemResetCounter <= (resetCtrl_systemResetCounter + 6'h01);
     end
-    if(when_Top_l233) begin
+    if(when_Top_l234) begin
       resetCtrl_systemResetCounter <= 6'h0;
     end
   end
@@ -2116,16 +1753,14 @@ module Briey (
       _zz_when_Stream_l1063_2 <= 1'b1;
       _zz_when_Stream_l1063_3 <= 1'b1;
       _zz_2 <= 1'b0;
-      toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_rValid <= 1'b0;
-      toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_rValid <= 1'b0;
+      toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_rValid <= 1'b0;
+      toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_rValid <= 1'b0;
       toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_rValid <= 1'b0;
       toplevel_dbus_axi_decoder_io_sharedOutputs_1_arw_rValid <= 1'b0;
       toplevel_dbus_axi_decoder_io_sharedOutputs_2_arw_rValid <= 1'b0;
       toplevel_dbus_axi_decoder_io_input_r_rValid <= 1'b0;
       toplevel_axi_vgaCtrl_io_axi_decoder_io_outputs_0_ar_rValid <= 1'b0;
       toplevel_axi_vgaCtrl_io_axi_ar_rValid <= 1'b0;
-      toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_rValid <= 1'b0;
-      toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_rValid <= 1'b0;
       toplevel_axi_ram_io_axi_arbiter_io_output_arw_rValid <= 1'b0;
       toplevel_axi_ram_io_axi_arbiter_io_output_w_rValidN <= 1'b1;
       toplevel_axi_ram_io_axi_arbiter_io_output_w_s2mPipe_rValid <= 1'b0;
@@ -2161,17 +1796,17 @@ module Briey (
       if(_zz_1) begin
         _zz_2 <= (! _zz_dbus_axi_w_payload_last);
       end
-      if(axi4ReadOnlyDecoder_3_io_outputs_0_ar_valid) begin
-        toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_rValid <= 1'b1;
+      if(axi4ReadOnlyDecoder_2_io_outputs_0_ar_valid) begin
+        toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_rValid <= 1'b1;
       end
-      if(toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_validPipe_fire) begin
-        toplevel_axi4ReadOnlyDecoder_3_io_outputs_0_ar_rValid <= 1'b0;
+      if(toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_validPipe_fire) begin
+        toplevel_axi4ReadOnlyDecoder_2_io_outputs_0_ar_rValid <= 1'b0;
       end
-      if(axi4ReadOnlyDecoder_3_io_outputs_1_ar_valid) begin
-        toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_rValid <= 1'b1;
+      if(axi4ReadOnlyDecoder_2_io_outputs_1_ar_valid) begin
+        toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_rValid <= 1'b1;
       end
-      if(toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_validPipe_fire) begin
-        toplevel_axi4ReadOnlyDecoder_3_io_outputs_1_ar_rValid <= 1'b0;
+      if(toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_validPipe_fire) begin
+        toplevel_axi4ReadOnlyDecoder_2_io_outputs_1_ar_rValid <= 1'b0;
       end
       if(dbus_axi_decoder_io_sharedOutputs_0_arw_valid) begin
         toplevel_dbus_axi_decoder_io_sharedOutputs_0_arw_rValid <= 1'b1;
@@ -2205,18 +1840,6 @@ module Briey (
       end
       if(toplevel_axi_vgaCtrl_io_axi_ar_halfPipe_fire) begin
         toplevel_axi_vgaCtrl_io_axi_ar_rValid <= 1'b0;
-      end
-      if(io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_valid) begin
-        toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_rValid <= 1'b1;
-      end
-      if(toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_validPipe_fire) begin
-        toplevel_io_extAxiMaster_readOnly_decoder_io_outputs_0_ar_rValid <= 1'b0;
-      end
-      if(io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_valid) begin
-        toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_rValid <= 1'b1;
-      end
-      if(toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_validPipe_fire) begin
-        toplevel_io_extAxiMaster_writeOnly_decoder_io_outputs_0_aw_rValid <= 1'b0;
       end
       if(axi_ram_io_axi_arbiter_io_output_arw_valid) begin
         toplevel_axi_ram_io_axi_arbiter_io_output_arw_rValid <= 1'b1;
@@ -3519,443 +3142,6 @@ module Axi4SharedArbiter (
 
 endmodule
 
-module Axi4WriteOnlyDecoder (
-  input  wire          io_input_aw_valid,
-  output wire          io_input_aw_ready,
-  input  wire [31:0]   io_input_aw_payload_addr,
-  input  wire [3:0]    io_input_aw_payload_id,
-  input  wire [3:0]    io_input_aw_payload_region,
-  input  wire [7:0]    io_input_aw_payload_len,
-  input  wire [2:0]    io_input_aw_payload_size,
-  input  wire [1:0]    io_input_aw_payload_burst,
-  input  wire [0:0]    io_input_aw_payload_lock,
-  input  wire [3:0]    io_input_aw_payload_cache,
-  input  wire [3:0]    io_input_aw_payload_qos,
-  input  wire [2:0]    io_input_aw_payload_prot,
-  input  wire          io_input_w_valid,
-  output wire          io_input_w_ready,
-  input  wire [31:0]   io_input_w_payload_data,
-  input  wire [3:0]    io_input_w_payload_strb,
-  input  wire          io_input_w_payload_last,
-  output wire          io_input_b_valid,
-  input  wire          io_input_b_ready,
-  output reg  [3:0]    io_input_b_payload_id,
-  output reg  [1:0]    io_input_b_payload_resp,
-  output wire          io_outputs_0_aw_valid,
-  input  wire          io_outputs_0_aw_ready,
-  output wire [31:0]   io_outputs_0_aw_payload_addr,
-  output wire [3:0]    io_outputs_0_aw_payload_id,
-  output wire [3:0]    io_outputs_0_aw_payload_region,
-  output wire [7:0]    io_outputs_0_aw_payload_len,
-  output wire [2:0]    io_outputs_0_aw_payload_size,
-  output wire [1:0]    io_outputs_0_aw_payload_burst,
-  output wire [0:0]    io_outputs_0_aw_payload_lock,
-  output wire [3:0]    io_outputs_0_aw_payload_cache,
-  output wire [3:0]    io_outputs_0_aw_payload_qos,
-  output wire [2:0]    io_outputs_0_aw_payload_prot,
-  output wire          io_outputs_0_w_valid,
-  input  wire          io_outputs_0_w_ready,
-  output wire [31:0]   io_outputs_0_w_payload_data,
-  output wire [3:0]    io_outputs_0_w_payload_strb,
-  output wire          io_outputs_0_w_payload_last,
-  input  wire          io_outputs_0_b_valid,
-  output wire          io_outputs_0_b_ready,
-  input  wire [3:0]    io_outputs_0_b_payload_id,
-  input  wire [1:0]    io_outputs_0_b_payload_resp,
-  input  wire          io_axiClk,
-  input  wire          resetCtrl_axiReset
-);
-
-  wire                errorSlave_io_axi_aw_valid;
-  wire                errorSlave_io_axi_w_valid;
-  wire                errorSlave_io_axi_aw_ready;
-  wire                errorSlave_io_axi_w_ready;
-  wire                errorSlave_io_axi_b_valid;
-  wire       [3:0]    errorSlave_io_axi_b_payload_id;
-  wire       [1:0]    errorSlave_io_axi_b_payload_resp;
-  wire                cmdAllowedStart;
-  wire                io_input_aw_fire;
-  wire                io_input_b_fire;
-  reg                 pendingCmdCounter_incrementIt;
-  reg                 pendingCmdCounter_decrementIt;
-  wire       [2:0]    pendingCmdCounter_valueNext;
-  reg        [2:0]    pendingCmdCounter_value;
-  wire                pendingCmdCounter_mayOverflow;
-  wire                pendingCmdCounter_willOverflowIfInc;
-  wire                pendingCmdCounter_willOverflow;
-  reg        [2:0]    pendingCmdCounter_finalIncrement;
-  wire                when_Utils_l735;
-  wire                when_Utils_l737;
-  wire                io_input_w_fire;
-  wire                when_Utils_l709;
-  reg                 pendingDataCounter_incrementIt;
-  reg                 pendingDataCounter_decrementIt;
-  wire       [2:0]    pendingDataCounter_valueNext;
-  reg        [2:0]    pendingDataCounter_value;
-  wire                pendingDataCounter_mayOverflow;
-  wire                pendingDataCounter_willOverflowIfInc;
-  wire                pendingDataCounter_willOverflow;
-  reg        [2:0]    pendingDataCounter_finalIncrement;
-  wire                when_Utils_l735_1;
-  wire                when_Utils_l737_1;
-  wire       [0:0]    decodedCmdSels;
-  wire                decodedCmdError;
-  reg        [0:0]    pendingSels;
-  reg                 pendingError;
-  wire                allowCmd;
-  wire                allowData;
-  reg                 _zz_cmdAllowedStart;
-
-  Axi4WriteOnlyErrorSlave errorSlave (
-    .io_axi_aw_valid          (errorSlave_io_axi_aw_valid           ), //i
-    .io_axi_aw_ready          (errorSlave_io_axi_aw_ready           ), //o
-    .io_axi_aw_payload_addr   (io_input_aw_payload_addr[31:0]       ), //i
-    .io_axi_aw_payload_id     (io_input_aw_payload_id[3:0]          ), //i
-    .io_axi_aw_payload_region (io_input_aw_payload_region[3:0]      ), //i
-    .io_axi_aw_payload_len    (io_input_aw_payload_len[7:0]         ), //i
-    .io_axi_aw_payload_size   (io_input_aw_payload_size[2:0]        ), //i
-    .io_axi_aw_payload_burst  (io_input_aw_payload_burst[1:0]       ), //i
-    .io_axi_aw_payload_lock   (io_input_aw_payload_lock             ), //i
-    .io_axi_aw_payload_cache  (io_input_aw_payload_cache[3:0]       ), //i
-    .io_axi_aw_payload_qos    (io_input_aw_payload_qos[3:0]         ), //i
-    .io_axi_aw_payload_prot   (io_input_aw_payload_prot[2:0]        ), //i
-    .io_axi_w_valid           (errorSlave_io_axi_w_valid            ), //i
-    .io_axi_w_ready           (errorSlave_io_axi_w_ready            ), //o
-    .io_axi_w_payload_data    (io_input_w_payload_data[31:0]        ), //i
-    .io_axi_w_payload_strb    (io_input_w_payload_strb[3:0]         ), //i
-    .io_axi_w_payload_last    (io_input_w_payload_last              ), //i
-    .io_axi_b_valid           (errorSlave_io_axi_b_valid            ), //o
-    .io_axi_b_ready           (io_input_b_ready                     ), //i
-    .io_axi_b_payload_id      (errorSlave_io_axi_b_payload_id[3:0]  ), //o
-    .io_axi_b_payload_resp    (errorSlave_io_axi_b_payload_resp[1:0]), //o
-    .io_axiClk                (io_axiClk                            ), //i
-    .resetCtrl_axiReset       (resetCtrl_axiReset                   )  //i
-  );
-  assign io_input_aw_fire = (io_input_aw_valid && io_input_aw_ready);
-  assign io_input_b_fire = (io_input_b_valid && io_input_b_ready);
-  always @(*) begin
-    pendingCmdCounter_incrementIt = 1'b0;
-    if(io_input_aw_fire) begin
-      pendingCmdCounter_incrementIt = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    pendingCmdCounter_decrementIt = 1'b0;
-    if(io_input_b_fire) begin
-      pendingCmdCounter_decrementIt = 1'b1;
-    end
-  end
-
-  assign pendingCmdCounter_mayOverflow = (pendingCmdCounter_value == 3'b111);
-  assign pendingCmdCounter_willOverflowIfInc = (pendingCmdCounter_mayOverflow && (! pendingCmdCounter_decrementIt));
-  assign pendingCmdCounter_willOverflow = (pendingCmdCounter_willOverflowIfInc && pendingCmdCounter_incrementIt);
-  assign when_Utils_l735 = (pendingCmdCounter_incrementIt && (! pendingCmdCounter_decrementIt));
-  always @(*) begin
-    if(when_Utils_l735) begin
-      pendingCmdCounter_finalIncrement = 3'b001;
-    end else begin
-      if(when_Utils_l737) begin
-        pendingCmdCounter_finalIncrement = 3'b111;
-      end else begin
-        pendingCmdCounter_finalIncrement = 3'b000;
-      end
-    end
-  end
-
-  assign when_Utils_l737 = ((! pendingCmdCounter_incrementIt) && pendingCmdCounter_decrementIt);
-  assign pendingCmdCounter_valueNext = (pendingCmdCounter_value + pendingCmdCounter_finalIncrement);
-  assign io_input_w_fire = (io_input_w_valid && io_input_w_ready);
-  assign when_Utils_l709 = (io_input_w_fire && io_input_w_payload_last);
-  always @(*) begin
-    pendingDataCounter_incrementIt = 1'b0;
-    if(cmdAllowedStart) begin
-      pendingDataCounter_incrementIt = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    pendingDataCounter_decrementIt = 1'b0;
-    if(when_Utils_l709) begin
-      pendingDataCounter_decrementIt = 1'b1;
-    end
-  end
-
-  assign pendingDataCounter_mayOverflow = (pendingDataCounter_value == 3'b111);
-  assign pendingDataCounter_willOverflowIfInc = (pendingDataCounter_mayOverflow && (! pendingDataCounter_decrementIt));
-  assign pendingDataCounter_willOverflow = (pendingDataCounter_willOverflowIfInc && pendingDataCounter_incrementIt);
-  assign when_Utils_l735_1 = (pendingDataCounter_incrementIt && (! pendingDataCounter_decrementIt));
-  always @(*) begin
-    if(when_Utils_l735_1) begin
-      pendingDataCounter_finalIncrement = 3'b001;
-    end else begin
-      if(when_Utils_l737_1) begin
-        pendingDataCounter_finalIncrement = 3'b111;
-      end else begin
-        pendingDataCounter_finalIncrement = 3'b000;
-      end
-    end
-  end
-
-  assign when_Utils_l737_1 = ((! pendingDataCounter_incrementIt) && pendingDataCounter_decrementIt);
-  assign pendingDataCounter_valueNext = (pendingDataCounter_value + pendingDataCounter_finalIncrement);
-  assign decodedCmdSels = (((io_input_aw_payload_addr & (~ 32'h00000fff)) == 32'hf0100000) && io_input_aw_valid);
-  assign decodedCmdError = (decodedCmdSels == 1'b0);
-  assign allowCmd = ((pendingCmdCounter_value == 3'b000) || ((pendingCmdCounter_value != 3'b111) && (pendingSels == decodedCmdSels)));
-  assign allowData = (pendingDataCounter_value != 3'b000);
-  assign cmdAllowedStart = ((io_input_aw_valid && allowCmd) && _zz_cmdAllowedStart);
-  assign io_input_aw_ready = (((|(decodedCmdSels & io_outputs_0_aw_ready)) || (decodedCmdError && errorSlave_io_axi_aw_ready)) && allowCmd);
-  assign errorSlave_io_axi_aw_valid = ((io_input_aw_valid && decodedCmdError) && allowCmd);
-  assign io_outputs_0_aw_valid = ((io_input_aw_valid && decodedCmdSels[0]) && allowCmd);
-  assign io_outputs_0_aw_payload_addr = io_input_aw_payload_addr;
-  assign io_outputs_0_aw_payload_id = io_input_aw_payload_id;
-  assign io_outputs_0_aw_payload_region = io_input_aw_payload_region;
-  assign io_outputs_0_aw_payload_len = io_input_aw_payload_len;
-  assign io_outputs_0_aw_payload_size = io_input_aw_payload_size;
-  assign io_outputs_0_aw_payload_burst = io_input_aw_payload_burst;
-  assign io_outputs_0_aw_payload_lock = io_input_aw_payload_lock;
-  assign io_outputs_0_aw_payload_cache = io_input_aw_payload_cache;
-  assign io_outputs_0_aw_payload_qos = io_input_aw_payload_qos;
-  assign io_outputs_0_aw_payload_prot = io_input_aw_payload_prot;
-  assign io_input_w_ready = (((|(pendingSels & io_outputs_0_w_ready)) || (pendingError && errorSlave_io_axi_w_ready)) && allowData);
-  assign errorSlave_io_axi_w_valid = ((io_input_w_valid && pendingError) && allowData);
-  assign io_outputs_0_w_valid = ((io_input_w_valid && pendingSels[0]) && allowData);
-  assign io_outputs_0_w_payload_data = io_input_w_payload_data;
-  assign io_outputs_0_w_payload_strb = io_input_w_payload_strb;
-  assign io_outputs_0_w_payload_last = io_input_w_payload_last;
-  assign io_input_b_valid = ((|io_outputs_0_b_valid) || errorSlave_io_axi_b_valid);
-  always @(*) begin
-    io_input_b_payload_id = io_outputs_0_b_payload_id;
-    if(pendingError) begin
-      io_input_b_payload_id = errorSlave_io_axi_b_payload_id;
-    end
-  end
-
-  always @(*) begin
-    io_input_b_payload_resp = io_outputs_0_b_payload_resp;
-    if(pendingError) begin
-      io_input_b_payload_resp = errorSlave_io_axi_b_payload_resp;
-    end
-  end
-
-  assign io_outputs_0_b_ready = io_input_b_ready;
-  always @(posedge io_axiClk or posedge resetCtrl_axiReset) begin
-    if(resetCtrl_axiReset) begin
-      pendingCmdCounter_value <= 3'b000;
-      pendingDataCounter_value <= 3'b000;
-      pendingSels <= 1'b0;
-      pendingError <= 1'b0;
-      _zz_cmdAllowedStart <= 1'b1;
-    end else begin
-      pendingCmdCounter_value <= pendingCmdCounter_valueNext;
-      pendingDataCounter_value <= pendingDataCounter_valueNext;
-      if(cmdAllowedStart) begin
-        pendingSels <= decodedCmdSels;
-      end
-      if(cmdAllowedStart) begin
-        pendingError <= decodedCmdError;
-      end
-      if(cmdAllowedStart) begin
-        _zz_cmdAllowedStart <= 1'b0;
-      end
-      if(io_input_aw_ready) begin
-        _zz_cmdAllowedStart <= 1'b1;
-      end
-    end
-  end
-
-
-endmodule
-
-module Axi4ReadOnlyDecoder_2 (
-  input  wire          io_input_ar_valid,
-  output wire          io_input_ar_ready,
-  input  wire [31:0]   io_input_ar_payload_addr,
-  input  wire [3:0]    io_input_ar_payload_id,
-  input  wire [3:0]    io_input_ar_payload_region,
-  input  wire [7:0]    io_input_ar_payload_len,
-  input  wire [2:0]    io_input_ar_payload_size,
-  input  wire [1:0]    io_input_ar_payload_burst,
-  input  wire [0:0]    io_input_ar_payload_lock,
-  input  wire [3:0]    io_input_ar_payload_cache,
-  input  wire [3:0]    io_input_ar_payload_qos,
-  input  wire [2:0]    io_input_ar_payload_prot,
-  output reg           io_input_r_valid,
-  input  wire          io_input_r_ready,
-  output wire [31:0]   io_input_r_payload_data,
-  output reg  [3:0]    io_input_r_payload_id,
-  output reg  [1:0]    io_input_r_payload_resp,
-  output reg           io_input_r_payload_last,
-  output wire          io_outputs_0_ar_valid,
-  input  wire          io_outputs_0_ar_ready,
-  output wire [31:0]   io_outputs_0_ar_payload_addr,
-  output wire [3:0]    io_outputs_0_ar_payload_id,
-  output wire [3:0]    io_outputs_0_ar_payload_region,
-  output wire [7:0]    io_outputs_0_ar_payload_len,
-  output wire [2:0]    io_outputs_0_ar_payload_size,
-  output wire [1:0]    io_outputs_0_ar_payload_burst,
-  output wire [0:0]    io_outputs_0_ar_payload_lock,
-  output wire [3:0]    io_outputs_0_ar_payload_cache,
-  output wire [3:0]    io_outputs_0_ar_payload_qos,
-  output wire [2:0]    io_outputs_0_ar_payload_prot,
-  input  wire          io_outputs_0_r_valid,
-  output wire          io_outputs_0_r_ready,
-  input  wire [31:0]   io_outputs_0_r_payload_data,
-  input  wire [3:0]    io_outputs_0_r_payload_id,
-  input  wire [1:0]    io_outputs_0_r_payload_resp,
-  input  wire          io_outputs_0_r_payload_last,
-  input  wire          io_axiClk,
-  input  wire          resetCtrl_axiReset
-);
-
-  wire                errorSlave_io_axi_ar_valid;
-  wire                errorSlave_io_axi_ar_ready;
-  wire                errorSlave_io_axi_r_valid;
-  wire       [31:0]   errorSlave_io_axi_r_payload_data;
-  wire       [3:0]    errorSlave_io_axi_r_payload_id;
-  wire       [1:0]    errorSlave_io_axi_r_payload_resp;
-  wire                errorSlave_io_axi_r_payload_last;
-  wire                io_input_ar_fire;
-  wire                io_input_r_fire;
-  wire                when_Utils_l709;
-  reg                 pendingCmdCounter_incrementIt;
-  reg                 pendingCmdCounter_decrementIt;
-  wire       [2:0]    pendingCmdCounter_valueNext;
-  reg        [2:0]    pendingCmdCounter_value;
-  wire                pendingCmdCounter_mayOverflow;
-  wire                pendingCmdCounter_willOverflowIfInc;
-  wire                pendingCmdCounter_willOverflow;
-  reg        [2:0]    pendingCmdCounter_finalIncrement;
-  wire                when_Utils_l735;
-  wire                when_Utils_l737;
-  wire       [0:0]    decodedCmdSels;
-  wire                decodedCmdError;
-  reg        [0:0]    pendingSels;
-  reg                 pendingError;
-  wire                allowCmd;
-
-  Axi4ReadOnlyErrorSlave errorSlave (
-    .io_axi_ar_valid          (errorSlave_io_axi_ar_valid            ), //i
-    .io_axi_ar_ready          (errorSlave_io_axi_ar_ready            ), //o
-    .io_axi_ar_payload_addr   (io_input_ar_payload_addr[31:0]        ), //i
-    .io_axi_ar_payload_id     (io_input_ar_payload_id[3:0]           ), //i
-    .io_axi_ar_payload_region (io_input_ar_payload_region[3:0]       ), //i
-    .io_axi_ar_payload_len    (io_input_ar_payload_len[7:0]          ), //i
-    .io_axi_ar_payload_size   (io_input_ar_payload_size[2:0]         ), //i
-    .io_axi_ar_payload_burst  (io_input_ar_payload_burst[1:0]        ), //i
-    .io_axi_ar_payload_lock   (io_input_ar_payload_lock              ), //i
-    .io_axi_ar_payload_cache  (io_input_ar_payload_cache[3:0]        ), //i
-    .io_axi_ar_payload_qos    (io_input_ar_payload_qos[3:0]          ), //i
-    .io_axi_ar_payload_prot   (io_input_ar_payload_prot[2:0]         ), //i
-    .io_axi_r_valid           (errorSlave_io_axi_r_valid             ), //o
-    .io_axi_r_ready           (io_input_r_ready                      ), //i
-    .io_axi_r_payload_data    (errorSlave_io_axi_r_payload_data[31:0]), //o
-    .io_axi_r_payload_id      (errorSlave_io_axi_r_payload_id[3:0]   ), //o
-    .io_axi_r_payload_resp    (errorSlave_io_axi_r_payload_resp[1:0] ), //o
-    .io_axi_r_payload_last    (errorSlave_io_axi_r_payload_last      ), //o
-    .io_axiClk                (io_axiClk                             ), //i
-    .resetCtrl_axiReset       (resetCtrl_axiReset                    )  //i
-  );
-  assign io_input_ar_fire = (io_input_ar_valid && io_input_ar_ready);
-  assign io_input_r_fire = (io_input_r_valid && io_input_r_ready);
-  assign when_Utils_l709 = (io_input_r_fire && io_input_r_payload_last);
-  always @(*) begin
-    pendingCmdCounter_incrementIt = 1'b0;
-    if(io_input_ar_fire) begin
-      pendingCmdCounter_incrementIt = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    pendingCmdCounter_decrementIt = 1'b0;
-    if(when_Utils_l709) begin
-      pendingCmdCounter_decrementIt = 1'b1;
-    end
-  end
-
-  assign pendingCmdCounter_mayOverflow = (pendingCmdCounter_value == 3'b111);
-  assign pendingCmdCounter_willOverflowIfInc = (pendingCmdCounter_mayOverflow && (! pendingCmdCounter_decrementIt));
-  assign pendingCmdCounter_willOverflow = (pendingCmdCounter_willOverflowIfInc && pendingCmdCounter_incrementIt);
-  assign when_Utils_l735 = (pendingCmdCounter_incrementIt && (! pendingCmdCounter_decrementIt));
-  always @(*) begin
-    if(when_Utils_l735) begin
-      pendingCmdCounter_finalIncrement = 3'b001;
-    end else begin
-      if(when_Utils_l737) begin
-        pendingCmdCounter_finalIncrement = 3'b111;
-      end else begin
-        pendingCmdCounter_finalIncrement = 3'b000;
-      end
-    end
-  end
-
-  assign when_Utils_l737 = ((! pendingCmdCounter_incrementIt) && pendingCmdCounter_decrementIt);
-  assign pendingCmdCounter_valueNext = (pendingCmdCounter_value + pendingCmdCounter_finalIncrement);
-  assign decodedCmdSels = (((io_input_ar_payload_addr & (~ 32'h00000fff)) == 32'hf0100000) && io_input_ar_valid);
-  assign decodedCmdError = (decodedCmdSels == 1'b0);
-  assign allowCmd = ((pendingCmdCounter_value == 3'b000) || ((pendingCmdCounter_value != 3'b111) && (pendingSels == decodedCmdSels)));
-  assign io_input_ar_ready = (((|(decodedCmdSels & io_outputs_0_ar_ready)) || (decodedCmdError && errorSlave_io_axi_ar_ready)) && allowCmd);
-  assign errorSlave_io_axi_ar_valid = ((io_input_ar_valid && decodedCmdError) && allowCmd);
-  assign io_outputs_0_ar_valid = ((io_input_ar_valid && decodedCmdSels[0]) && allowCmd);
-  assign io_outputs_0_ar_payload_addr = io_input_ar_payload_addr;
-  assign io_outputs_0_ar_payload_id = io_input_ar_payload_id;
-  assign io_outputs_0_ar_payload_region = io_input_ar_payload_region;
-  assign io_outputs_0_ar_payload_len = io_input_ar_payload_len;
-  assign io_outputs_0_ar_payload_size = io_input_ar_payload_size;
-  assign io_outputs_0_ar_payload_burst = io_input_ar_payload_burst;
-  assign io_outputs_0_ar_payload_lock = io_input_ar_payload_lock;
-  assign io_outputs_0_ar_payload_cache = io_input_ar_payload_cache;
-  assign io_outputs_0_ar_payload_qos = io_input_ar_payload_qos;
-  assign io_outputs_0_ar_payload_prot = io_input_ar_payload_prot;
-  always @(*) begin
-    io_input_r_valid = (|io_outputs_0_r_valid);
-    if(errorSlave_io_axi_r_valid) begin
-      io_input_r_valid = 1'b1;
-    end
-  end
-
-  assign io_input_r_payload_data = io_outputs_0_r_payload_data;
-  always @(*) begin
-    io_input_r_payload_id = io_outputs_0_r_payload_id;
-    if(pendingError) begin
-      io_input_r_payload_id = errorSlave_io_axi_r_payload_id;
-    end
-  end
-
-  always @(*) begin
-    io_input_r_payload_resp = io_outputs_0_r_payload_resp;
-    if(pendingError) begin
-      io_input_r_payload_resp = errorSlave_io_axi_r_payload_resp;
-    end
-  end
-
-  always @(*) begin
-    io_input_r_payload_last = io_outputs_0_r_payload_last;
-    if(pendingError) begin
-      io_input_r_payload_last = errorSlave_io_axi_r_payload_last;
-    end
-  end
-
-  assign io_outputs_0_r_ready = io_input_r_ready;
-  always @(posedge io_axiClk or posedge resetCtrl_axiReset) begin
-    if(resetCtrl_axiReset) begin
-      pendingCmdCounter_value <= 3'b000;
-      pendingSels <= 1'b0;
-      pendingError <= 1'b0;
-    end else begin
-      pendingCmdCounter_value <= pendingCmdCounter_valueNext;
-      if(io_input_ar_ready) begin
-        pendingSels <= decodedCmdSels;
-      end
-      if(io_input_ar_ready) begin
-        pendingError <= decodedCmdError;
-      end
-    end
-  end
-
-
-endmodule
-
 module Axi4ReadOnlyDecoder_1 (
   input  wire          io_input_ar_valid,
   output wire          io_input_ar_ready,
@@ -4007,7 +3193,7 @@ module Axi4ReadOnlyDecoder_1 (
   reg                 pendingError;
   wire                allowCmd;
 
-  Axi4ReadOnlyErrorSlave_1 errorSlave (
+  Axi4ReadOnlyErrorSlave errorSlave (
     .io_axi_ar_valid         (errorSlave_io_axi_ar_valid            ), //i
     .io_axi_ar_ready         (errorSlave_io_axi_ar_ready            ), //o
     .io_axi_ar_payload_addr  (io_input_ar_payload_addr[31:0]        ), //i
@@ -4540,7 +3726,7 @@ module Axi4ReadOnlyDecoder (
   wire                _zz_readRspIndex;
   wire       [0:0]    readRspIndex;
 
-  Axi4ReadOnlyErrorSlave_2 errorSlave (
+  Axi4ReadOnlyErrorSlave_1 errorSlave (
     .io_axi_ar_valid         (errorSlave_io_axi_ar_valid            ), //i
     .io_axi_ar_ready         (errorSlave_io_axi_ar_ready            ), //o
     .io_axi_ar_payload_addr  (io_input_ar_payload_addr[31:0]        ), //i
@@ -4648,76 +3834,6 @@ module Axi4ReadOnlyDecoder (
       if(io_input_ar_ready) begin
         pendingError <= decodedCmdError;
       end
-    end
-  end
-
-
-endmodule
-
-module SimpleAxiSlave (
-  input  wire          io_axi_aw_valid,
-  output wire          io_axi_aw_ready,
-  input  wire [31:0]   io_axi_aw_payload_addr,
-  input  wire [3:0]    io_axi_aw_payload_id,
-  input  wire [3:0]    io_axi_aw_payload_region,
-  input  wire [7:0]    io_axi_aw_payload_len,
-  input  wire [2:0]    io_axi_aw_payload_size,
-  input  wire [1:0]    io_axi_aw_payload_burst,
-  input  wire [0:0]    io_axi_aw_payload_lock,
-  input  wire [3:0]    io_axi_aw_payload_cache,
-  input  wire [3:0]    io_axi_aw_payload_qos,
-  input  wire [2:0]    io_axi_aw_payload_prot,
-  input  wire          io_axi_w_valid,
-  output wire          io_axi_w_ready,
-  input  wire [31:0]   io_axi_w_payload_data,
-  input  wire [3:0]    io_axi_w_payload_strb,
-  input  wire          io_axi_w_payload_last,
-  output wire          io_axi_b_valid,
-  input  wire          io_axi_b_ready,
-  output wire [3:0]    io_axi_b_payload_id,
-  output wire [1:0]    io_axi_b_payload_resp,
-  input  wire          io_axi_ar_valid,
-  output wire          io_axi_ar_ready,
-  input  wire [31:0]   io_axi_ar_payload_addr,
-  input  wire [3:0]    io_axi_ar_payload_id,
-  input  wire [3:0]    io_axi_ar_payload_region,
-  input  wire [7:0]    io_axi_ar_payload_len,
-  input  wire [2:0]    io_axi_ar_payload_size,
-  input  wire [1:0]    io_axi_ar_payload_burst,
-  input  wire [0:0]    io_axi_ar_payload_lock,
-  input  wire [3:0]    io_axi_ar_payload_cache,
-  input  wire [3:0]    io_axi_ar_payload_qos,
-  input  wire [2:0]    io_axi_ar_payload_prot,
-  output wire          io_axi_r_valid,
-  input  wire          io_axi_r_ready,
-  output wire [31:0]   io_axi_r_payload_data,
-  output wire [3:0]    io_axi_r_payload_id,
-  output wire [1:0]    io_axi_r_payload_resp,
-  output wire          io_axi_r_payload_last,
-  output wire [31:0]   io_regOut,
-  input  wire          io_axiClk,
-  input  wire          resetCtrl_axiReset
-);
-
-  reg        [31:0]   reg_1;
-
-  assign io_axi_aw_ready = 1'b1;
-  assign io_axi_w_ready = 1'b1;
-  assign io_axi_ar_ready = 1'b1;
-  assign io_axi_b_valid = (io_axi_aw_valid && io_axi_w_valid);
-  assign io_axi_b_payload_resp = 2'b00;
-  assign io_axi_b_payload_id = io_axi_aw_payload_id;
-  assign io_axi_r_valid = io_axi_ar_valid;
-  assign io_axi_r_payload_data = reg_1;
-  assign io_axi_r_payload_resp = 2'b00;
-  assign io_axi_r_payload_id = io_axi_ar_payload_id;
-  assign io_axi_r_payload_last = 1'b1;
-  assign io_regOut = reg_1;
-  always @(posedge io_axiClk or posedge resetCtrl_axiReset) begin
-    if(resetCtrl_axiReset) begin
-      reg_1 <= 32'h0;
-    end else begin
-      reg_1 <= reg_1;
     end
   end
 
@@ -12864,6 +11980,12 @@ module Axi4SharedOnChipRam (
   assign _zz_Axi4Incr_result_10 = Axi4Incr_baseIncr[4 : 0];
   assign _zz_Axi4Incr_result_11 = Axi4Incr_base[11 : 6];
   assign _zz_Axi4Incr_result_12 = Axi4Incr_baseIncr[5 : 0];
+  initial begin
+    $readmemb("Briey.v_toplevel_axi_ram_ram_symbol0.bin",ram_symbol0);
+    $readmemb("Briey.v_toplevel_axi_ram_ram_symbol1.bin",ram_symbol1);
+    $readmemb("Briey.v_toplevel_axi_ram_ram_symbol2.bin",ram_symbol2);
+    $readmemb("Briey.v_toplevel_axi_ram_ram_symbol3.bin",ram_symbol3);
+  end
   always @(*) begin
     ram_spinal_port0 = {_zz_ramsymbol_read_3, _zz_ramsymbol_read_2, _zz_ramsymbol_read_1, _zz_ramsymbol_read};
   end
@@ -13474,145 +12596,7 @@ module StreamArbiter_2 (
 
 endmodule
 
-module Axi4WriteOnlyErrorSlave (
-  input  wire          io_axi_aw_valid,
-  output wire          io_axi_aw_ready,
-  input  wire [31:0]   io_axi_aw_payload_addr,
-  input  wire [3:0]    io_axi_aw_payload_id,
-  input  wire [3:0]    io_axi_aw_payload_region,
-  input  wire [7:0]    io_axi_aw_payload_len,
-  input  wire [2:0]    io_axi_aw_payload_size,
-  input  wire [1:0]    io_axi_aw_payload_burst,
-  input  wire [0:0]    io_axi_aw_payload_lock,
-  input  wire [3:0]    io_axi_aw_payload_cache,
-  input  wire [3:0]    io_axi_aw_payload_qos,
-  input  wire [2:0]    io_axi_aw_payload_prot,
-  input  wire          io_axi_w_valid,
-  output wire          io_axi_w_ready,
-  input  wire [31:0]   io_axi_w_payload_data,
-  input  wire [3:0]    io_axi_w_payload_strb,
-  input  wire          io_axi_w_payload_last,
-  output wire          io_axi_b_valid,
-  input  wire          io_axi_b_ready,
-  output wire [3:0]    io_axi_b_payload_id,
-  output wire [1:0]    io_axi_b_payload_resp,
-  input  wire          io_axiClk,
-  input  wire          resetCtrl_axiReset
-);
-
-  reg                 consumeData;
-  reg                 sendRsp;
-  reg        [3:0]    id;
-  wire                io_axi_aw_fire;
-  wire                io_axi_w_fire;
-  wire                when_Axi4ErrorSlave_l24;
-  wire                io_axi_b_fire;
-
-  assign io_axi_aw_ready = (! (consumeData || sendRsp));
-  assign io_axi_aw_fire = (io_axi_aw_valid && io_axi_aw_ready);
-  assign io_axi_w_ready = consumeData;
-  assign io_axi_w_fire = (io_axi_w_valid && io_axi_w_ready);
-  assign when_Axi4ErrorSlave_l24 = (io_axi_w_fire && io_axi_w_payload_last);
-  assign io_axi_b_valid = sendRsp;
-  assign io_axi_b_payload_resp = 2'b11;
-  assign io_axi_b_payload_id = id;
-  assign io_axi_b_fire = (io_axi_b_valid && io_axi_b_ready);
-  always @(posedge io_axiClk or posedge resetCtrl_axiReset) begin
-    if(resetCtrl_axiReset) begin
-      consumeData <= 1'b0;
-      sendRsp <= 1'b0;
-    end else begin
-      if(io_axi_aw_fire) begin
-        consumeData <= 1'b1;
-      end
-      if(when_Axi4ErrorSlave_l24) begin
-        consumeData <= 1'b0;
-        sendRsp <= 1'b1;
-      end
-      if(io_axi_b_fire) begin
-        sendRsp <= 1'b0;
-      end
-    end
-  end
-
-  always @(posedge io_axiClk) begin
-    if(io_axi_aw_fire) begin
-      id <= io_axi_aw_payload_id;
-    end
-  end
-
-
-endmodule
-
 module Axi4ReadOnlyErrorSlave (
-  input  wire          io_axi_ar_valid,
-  output wire          io_axi_ar_ready,
-  input  wire [31:0]   io_axi_ar_payload_addr,
-  input  wire [3:0]    io_axi_ar_payload_id,
-  input  wire [3:0]    io_axi_ar_payload_region,
-  input  wire [7:0]    io_axi_ar_payload_len,
-  input  wire [2:0]    io_axi_ar_payload_size,
-  input  wire [1:0]    io_axi_ar_payload_burst,
-  input  wire [0:0]    io_axi_ar_payload_lock,
-  input  wire [3:0]    io_axi_ar_payload_cache,
-  input  wire [3:0]    io_axi_ar_payload_qos,
-  input  wire [2:0]    io_axi_ar_payload_prot,
-  output wire          io_axi_r_valid,
-  input  wire          io_axi_r_ready,
-  output wire [31:0]   io_axi_r_payload_data,
-  output wire [3:0]    io_axi_r_payload_id,
-  output wire [1:0]    io_axi_r_payload_resp,
-  output wire          io_axi_r_payload_last,
-  input  wire          io_axiClk,
-  input  wire          resetCtrl_axiReset
-);
-
-  reg                 sendRsp;
-  reg        [3:0]    id;
-  reg        [7:0]    remaining;
-  wire                remainingZero;
-  wire                io_axi_ar_fire;
-
-  assign remainingZero = (remaining == 8'h0);
-  assign io_axi_ar_ready = (! sendRsp);
-  assign io_axi_ar_fire = (io_axi_ar_valid && io_axi_ar_ready);
-  assign io_axi_r_valid = sendRsp;
-  assign io_axi_r_payload_id = id;
-  assign io_axi_r_payload_resp = 2'b11;
-  assign io_axi_r_payload_last = remainingZero;
-  always @(posedge io_axiClk or posedge resetCtrl_axiReset) begin
-    if(resetCtrl_axiReset) begin
-      sendRsp <= 1'b0;
-    end else begin
-      if(io_axi_ar_fire) begin
-        sendRsp <= 1'b1;
-      end
-      if(sendRsp) begin
-        if(io_axi_r_ready) begin
-          if(remainingZero) begin
-            sendRsp <= 1'b0;
-          end
-        end
-      end
-    end
-  end
-
-  always @(posedge io_axiClk) begin
-    if(io_axi_ar_fire) begin
-      remaining <= io_axi_ar_payload_len;
-      id <= io_axi_ar_payload_id;
-    end
-    if(sendRsp) begin
-      if(io_axi_r_ready) begin
-        remaining <= (remaining - 8'h01);
-      end
-    end
-  end
-
-
-endmodule
-
-module Axi4ReadOnlyErrorSlave_1 (
   input  wire          io_axi_ar_valid,
   output wire          io_axi_ar_ready,
   input  wire [31:0]   io_axi_ar_payload_addr,
@@ -13758,7 +12742,7 @@ module Axi4SharedErrorSlave (
 
 endmodule
 
-module Axi4ReadOnlyErrorSlave_2 (
+module Axi4ReadOnlyErrorSlave_1 (
   input  wire          io_axi_ar_valid,
   output wire          io_axi_ar_ready,
   input  wire [31:0]   io_axi_ar_payload_addr,
