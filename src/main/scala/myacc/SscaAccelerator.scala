@@ -7,8 +7,9 @@ import spinal.core._
  * Adjust the I/O ports to match those defined in your Verilog module.
  */
 class SscaAccelerator extends BlackBox {
-  val io = new Bundle {
+  val acc_io = new Bundle {
     // ssca's done output signal
+    val start = in Bool()
     val done = out Bool()
     // Add any additional ports your accelerator requires.
     // For example:

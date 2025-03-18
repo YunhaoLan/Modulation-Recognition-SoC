@@ -1,4 +1,5 @@
 package mysoc
+import spinal.core._
 
 
 import vexriscv.plugin._
@@ -26,6 +27,9 @@ import spinal.lib.system.debugger.{JtagAxi4SharedDebugger, JtagBridge, SystemDeb
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.Seq
 
+import myplugin._
+import myacc._
+
 class TopLevel(config: TopLevelConfig) extends Component {
   val io = new Bundle {
     // Clocks and reset
@@ -46,7 +50,7 @@ class TopLevel(config: TopLevelConfig) extends Component {
     reset = RegNext(io.asyncReset)
   )
 
-  // All AXI‐related components are instantiated in this clocking area
+  // All AXI‐related components are instantiated in this clocking area========================================
   val axiArea = new ClockingArea(axiClockDomain) {
     // Instantiate an on‑chip RAM (to hold code/data)
     val ram = Axi4SharedOnChipRam(
@@ -69,15 +73,14 @@ class TopLevel(config: TopLevelConfig) extends Component {
     val uartCtrl = Apb3UartCtrl(config.uartCtrlConfig)
     // Make it public for simulation (optional)
     uartCtrl.io.apb.addAttribute(Verilator.public)
-
-    // The CPU core area
+    // The CPU core area----------------------------------------------------------------------------------------
     val core = new Area {
-      // val plugins = config.cpuPlugins :+ new DebugPlugin(debugClockDomain)
       // Build a VexRiscv configuration with the plugins from the config
-      val vexConfig = VexRiscvConfig(config.cpuPlugins)
+      val sscaPlugin = new SscaPlugin()
+      val my_plugins = config.cpuPlugins ++ Seq(sscaPlugin) //add sscaPlugin into plugin list
+      val vexConfig = VexRiscvConfig(my_plugins)
       val cpu       = new VexRiscv(vexConfig)
 
-      // Extract the instruction and data bus interfaces from the CPU plugins
       val iBus = {
         var bus: Axi4ReadOnly = null
         for(plugin <- vexConfig.plugins) {
@@ -109,7 +112,7 @@ class TopLevel(config: TopLevelConfig) extends Component {
           case _ =>
         }
       }
-    }
+    }//-------------------------------------------------------------------------------------------------------------
 
     // Build the AXI crossbar connecting the CPU buses to the slaves.
     // Two slaves are attached: the on‑chip RAM at address 0x80000000
@@ -137,7 +140,7 @@ class TopLevel(config: TopLevelConfig) extends Component {
 
     // Connect the UART peripheral to the top-level IO
     uartCtrl.io.uart <> io.uart
-  }
+  }// =====================================================================================================================
 
   // Expose the RAM instance for simulation purposes (e.g. hex file initialization)
   val ramInst = axiArea.ramInst
