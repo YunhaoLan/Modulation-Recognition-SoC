@@ -77,7 +77,8 @@ class TopLevel(config: TopLevelConfig) extends Component {
     val core = new Area {
       // Build a VexRiscv configuration with the plugins from the config
       val sscaPlugin = new SscaPlugin()
-      val my_plugins = config.cpuPlugins ++ Seq(sscaPlugin) //add sscaPlugin into plugin list
+      val resNetPlugin = new ResNetPlugin()
+      val my_plugins = config.cpuPlugins ++ Seq(sscaPlugin, resNetPlugin) //add both plugin into plugin list
       val vexConfig = VexRiscvConfig(my_plugins)
       val cpu       = new VexRiscv(vexConfig)
 
