@@ -34,33 +34,14 @@ object TopLevelVerilog {
   }
 }
 
-// Simulation object: here you can initialize the on‑chip RAM (e.g. from a hex file)
-// and simulate basic clock/reset and (optionally) UART transactions.
-// object TopLevelSim {
-//   def main(args: Array[String]): Unit = {
-//     SimConfig.withWave.compile(new TopLevel(TopLevelConfig.default)).doSim { dut =>
-//       // Create a simple clock generator (adjust period as needed)
-//       dut.io.axiClk #= false
-//       fork {
-//         while (true) {
-//           dut.io.axiClk #= !dut.io.axiClk.toBoolean
-//           sleep(5)
-//         }
-//       }
-
-//       // Apply reset
-//       dut.io.asyncReset #= true
-//       sleep(20)
-//       dut.io.asyncReset #= false
-
-//       // (Optional) Preload on‑chip RAM with a hex file.
-//       // Replace "path/to/firmware.hex" with your actual hex file path.
-//       HexTools.initRam(dut.ramInst.ram, "src/main/ressource/hex/firmware.hex", 0x80000000L)
-
-//       // Simulation run – add additional testbench stimulus if needed.
-//       sleep(1000)
-//       simSuccess()
-//     }
-//   }
-// }
+object TopLevelSim{
+  def main(args: Array[String]) {
+    val config = SpinalConfig(targetDirectory = "rtl")
+    config.generateVerilog({
+      val toplevel = new TopLevel(TopLevelConfig.default)
+      HexTools.initRam(toplevel.ramInst.ram, "src/main/ressource/hex/test.hex", 0x80000000l)
+      toplevel
+    })
+  }
+}
 

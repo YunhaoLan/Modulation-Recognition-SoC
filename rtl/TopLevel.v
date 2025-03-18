@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.10.2a    git head : a348a60b7e8b6a455c72e1536ec3d74a2ea16935
 // Component : TopLevel
-// Git hash  : ac3c2caa5a8a57bee021da14f61d532fc3e8f17c
+// Git hash  : d2c091355aacf4d51c69f9133f30e608ee9234f2
 
 `timescale 1ns/1ps
 
@@ -7715,6 +7715,12 @@ module Axi4SharedOnChipRam (
   assign _zz_Axi4Incr_result_10 = Axi4Incr_baseIncr[4 : 0];
   assign _zz_Axi4Incr_result_11 = Axi4Incr_base[11 : 6];
   assign _zz_Axi4Incr_result_12 = Axi4Incr_baseIncr[5 : 0];
+  initial begin
+    $readmemb("TopLevel.v_toplevel_axiArea_ram_ram_symbol0.bin",ram_symbol0);
+    $readmemb("TopLevel.v_toplevel_axiArea_ram_ram_symbol1.bin",ram_symbol1);
+    $readmemb("TopLevel.v_toplevel_axiArea_ram_ram_symbol2.bin",ram_symbol2);
+    $readmemb("TopLevel.v_toplevel_axiArea_ram_ram_symbol3.bin",ram_symbol3);
+  end
   always @(*) begin
     ram_spinal_port0 = {_zz_ramsymbol_read_3, _zz_ramsymbol_read_2, _zz_ramsymbol_read_1, _zz_ramsymbol_read};
   end
