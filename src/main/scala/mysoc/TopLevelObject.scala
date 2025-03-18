@@ -39,7 +39,7 @@ object TopLevelSim{
     val config = SpinalConfig(targetDirectory = "rtl")
     config.generateVerilog({
       val toplevel = new TopLevel(TopLevelConfig.default)
-      HexTools.initRam(toplevel.ramInst.ram, "src/main/ressource/hex/test.hex", 0x80000000l)
+      HexTools.initRam(toplevel.axi.ram.ram, "src/main/ressource/hex/test.hex", 0x80000000l)
       toplevel
     })
   }

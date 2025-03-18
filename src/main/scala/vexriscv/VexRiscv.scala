@@ -132,6 +132,10 @@ class VexRiscv(val config : VexRiscvConfig) extends Component with Pipeline{
   type  T = VexRiscv
   import config._
 
+  val acc_io = new Bundle {
+    val ssca_status = out UInt(1 bits)
+  }
+
   //Define stages
   def newStage(): Stage = { val s = new Stage; stages += s; s }
   val decode    = newStage()
