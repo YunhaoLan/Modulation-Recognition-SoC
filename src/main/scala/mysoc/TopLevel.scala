@@ -26,10 +26,9 @@ import spinal.lib.system.debugger.{JtagAxi4SharedDebugger, JtagBridge, SystemDeb
 
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.Seq
+import spinal.lib.bus.misc.SizeMapping._
 
-import myplugin._
 import myacc._
-import mycpu._ 
 import mysoc._
 
 class TopLevel(val config: TopLevelConfig) extends Component{
@@ -105,30 +104,36 @@ class TopLevel(val config: TopLevelConfig) extends Component{
       val cpu = new VexRiscv(config)
       var iBus : Axi4ReadOnly = null
       var dBus : Axi4Shared = null
-      for(plugin <- config.plugins) plugin match{
-        case plugin : IBusSimplePlugin => iBus = plugin.iBus.toAxi4ReadOnly()
-        case plugin : IBusCachedPlugin => iBus = plugin.iBus.toAxi4ReadOnly()
-        case plugin : DBusSimplePlugin => dBus = plugin.dBus.toAxi4Shared()
-        case plugin : DBusCachedPlugin => dBus = plugin.dBus.toAxi4Shared(true)
-        case plugin : CsrPlugin        => {
-          plugin.externalInterrupt := False
-          plugin.timerInterrupt := False
+
+      for(plugin <- config.plugins){
+        plugin match{
+          case plugin : IBusSimplePlugin => iBus = plugin.iBus.toAxi4ReadOnly()
+          case plugin : IBusCachedPlugin => iBus = plugin.iBus.toAxi4ReadOnly()
+          case plugin : DBusSimplePlugin => dBus = plugin.dBus.toAxi4Shared()
+          case plugin : DBusCachedPlugin => dBus = plugin.dBus.toAxi4Shared(true)
+          case plugin : CsrPlugin        => {
+            plugin.externalInterrupt := False
+            plugin.timerInterrupt := False
+          }
+          case _ =>
         }
-        case _ =>
       }
     }
 
 
+    val resnet = new ResNetAccelerator()
+    
     val axiCrossbar = Axi4CrossbarFactory()
 
     axiCrossbar.addSlaves(
       ram.io.axi       -> (0x80000000L,   onChipRamSize),
+      resnet.io.axi    -> (0x90000000L,   1 MB),
       apbBridge.io.axi -> (0xF0000000L,   1 MB)
     )
 
     axiCrossbar.addConnections(
       core.iBus       -> List(ram.io.axi),
-      core.dBus       -> List(ram.io.axi, apbBridge.io.axi),
+      core.dBus       -> List(ram.io.axi, resnet.io.axi, apbBridge.io.axi),
     )
 
 
