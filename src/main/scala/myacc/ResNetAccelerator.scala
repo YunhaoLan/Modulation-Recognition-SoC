@@ -33,7 +33,7 @@ class ResNetAccelerator extends BlackBox {
   val axi4Config=Axi4Config(
     addressWidth = 32,
     dataWidth = 32,
-    idWidth = 4,
+    idWidth = 2,
     useLock = false,
     useRegion = false,
     useCache = false,
@@ -41,7 +41,8 @@ class ResNetAccelerator extends BlackBox {
     useQos = false
   )
   val io = new Bundle {
-    val axi = slave(Axi4Shared(axi4Config))
+    val axiConfig = slave(Axi4Shared(axi4Config))
+    val axiMaster = master(Axi4Shared(axi4Config))
   }
   // Prevent prefixing IO names so they match the Verilog module port names exactly.
   noIoPrefix()

@@ -127,13 +127,14 @@ class TopLevel(val config: TopLevelConfig) extends Component{
 
     axiCrossbar.addSlaves(
       ram.io.axi       -> (0x80000000L,   onChipRamSize),
-      resnet.io.axi    -> (0x90000000L,   1 MB),
+      resnet.io.axiConfig    -> (0x90000000L,   1 MB),
       apbBridge.io.axi -> (0xF0000000L,   1 MB)
     )
 
     axiCrossbar.addConnections(
       core.iBus       -> List(ram.io.axi),
-      core.dBus       -> List(ram.io.axi, resnet.io.axi, apbBridge.io.axi),
+      core.dBus       -> List(ram.io.axi, resnet.io.axiConfig, apbBridge.io.axi),
+      resnet.io.axiMaster -> List(ram.io.axi) // 加速器作为master访问RAM
     )
 
 

@@ -36,7 +36,7 @@ object TopLevelConfig{
   def default = {
     val config = TopLevelConfig(
       axiFrequency = 50 MHz,
-      onChipRamSize  = 4 kB,
+      onChipRamSize  = 1 MB,
       uartCtrlConfig = UartCtrlMemoryMappedConfig(
         uartCtrlConfig = UartCtrlGenerics(
           dataWidthMax      = 8,
